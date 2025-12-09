@@ -1,0 +1,78 @@
+.icon-circle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: scaleIn var(--transition-slower) ease-out forwards;
+  opacity: 0;
+}
+
+/* Size variants */
+.icon-circle-large {
+  width: 200px;
+  height: 200px;
+}
+
+.icon-circle-medium {
+  width: 160px;
+  height: 160px;
+}
+
+.icon-circle-small {
+  width: 120px;
+  height: 120px;
+}
+
+/* Layered circles for depth effect */
+.icon-circle-outer {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(139, 136, 241, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: gentlePulse 3s ease-in-out infinite;
+}
+
+.icon-circle-middle {
+  width: 75%;
+  height: 75%;
+  border-radius: 50%;
+  background: rgba(139, 136, 241, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-circle-inner {
+  width: 65%;
+  height: 65%;
+  border-radius: 50%;
+  background: var(--gradient-purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(139, 136, 241, 0.3);
+}
+
+.icon-circle-inner svg {
+  width: 50%;
+  height: 50%;
+  color: var(--color-white);
+  stroke-width: 2;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 375px) {
+  .icon-circle-large {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon-circle-outer {
+    animation: none;
+  }
+}

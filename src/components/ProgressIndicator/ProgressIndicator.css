@@ -1,0 +1,25 @@
+.progress-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  margin: var(--spacing-lg) 0;
+}
+
+.progress-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: all var(--transition-base);
+}
+
+.progress-dot.active {
+  width: 24px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-white);
+}
+
+.progress-dot.completed {
+  background-color: rgba(255, 255, 255, 0.6);
+}
