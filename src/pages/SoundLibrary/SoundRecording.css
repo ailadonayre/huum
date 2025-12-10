@@ -1,0 +1,199 @@
+.sound-recording-screen {
+  min-height: 100vh;
+  width: 100%;
+  background: var(--gradient-purple-bg);
+  display: flex;
+  flex-direction: column;
+  color: var(--color-white);
+  position: relative;
+}
+
+/* Header */
+.sound-recording-header {
+  padding: var(--spacing-lg);
+  display: flex;
+  justify-content: flex-end;
+  animation: fadeInDown var(--transition-base) ease-out;
+}
+
+.sound-recording-close {
+  background: none;
+  border: none;
+  color: var(--color-white);
+  cursor: pointer;
+  padding: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity var(--transition-fast);
+}
+
+.sound-recording-close:hover {
+  opacity: 0.8;
+}
+
+/* Content */
+.sound-recording-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl) var(--spacing-lg);
+  text-align: center;
+}
+
+.sound-recording-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-sm);
+  animation: fadeInUp var(--transition-slow) ease-out;
+  animation-delay: 100ms;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.sound-recording-subtitle {
+  font-size: var(--font-size-base);
+  opacity: 0.9;
+  margin-bottom: var(--spacing-3xl);
+  max-width: 320px;
+  animation: fadeInUp var(--transition-slow) ease-out;
+  animation-delay: 200ms;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+/* Recording Circle */
+.sound-recording-circle-wrapper {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  margin: var(--spacing-2xl) 0;
+}
+
+.sound-recording-circle {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: scaleIn var(--transition-slower) ease-out;
+  animation-delay: 300ms;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.sound-recording-ripple {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  animation: rippleExpand 2s ease-out infinite;
+}
+
+.sound-recording-ripple:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.sound-recording-ripple:nth-child(3) {
+  animation-delay: 1s;
+}
+
+.sound-recording-circle-inner {
+  position: relative;
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+  background: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.sound-recording-circle-inner:hover {
+  transform: scale(1.05);
+}
+
+.sound-recording-circle-inner.recording {
+  background: var(--color-pink);
+}
+
+.sound-recording-circle-inner svg {
+  width: 50%;
+  height: 50%;
+  color: var(--color-primary);
+}
+
+.sound-recording-circle-inner.recording svg {
+  color: var(--color-white);
+}
+
+/* Timer */
+.sound-recording-timer {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  margin-top: var(--spacing-xl);
+  font-variant-numeric: tabular-nums;
+  animation: fadeInUp var(--transition-slow) ease-out;
+  animation-delay: 500ms;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+/* Instructions */
+.sound-recording-instructions {
+  margin-top: var(--spacing-2xl);
+  animation: fadeInUp var(--transition-slow) ease-out;
+  animation-delay: 600ms;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.sound-recording-instruction-text {
+  font-size: var(--font-size-base);
+  opacity: 0.9;
+  margin-bottom: var(--spacing-md);
+}
+
+.sound-recording-hint {
+  font-size: var(--font-size-sm);
+  opacity: 0.7;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+/* Footer */
+.sound-recording-footer {
+  padding: var(--spacing-lg);
+  animation: fadeInUp var(--transition-base) ease-out;
+}
+
+.sound-recording-actions {
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+/* Waveform */
+.recording-waveform {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 60px;
+}
+
+.recording-waveform-bar {
+  width: 3px;
+  background: var(--color-white);
+  border-radius: var(--radius-full);
+  transition: height var(--transition-fast);
+}

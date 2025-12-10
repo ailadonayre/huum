@@ -13,12 +13,16 @@ import Onboarding2 from './pages/Onboarding/Onboarding2';
 import Onboarding3 from './pages/Onboarding/Onboarding3';
 import SetupMicrophone from './pages/Setup/SetupMicrophone';
 import SetupNotifications from './pages/Setup/SetupNotifications';
+import AddSound from './pages/SoundLibrary/AddSound';
+import SoundLibrary from './pages/SoundLibrary/SoundLibrary';
+import SoundRecording from './pages/SoundLibrary/SoundRecording';
 import SplashScreen from './pages/SplashScreen/SplashScreen';
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState('splash');
   const [userName, setUserName] = useState('User');
   const [isListening, setIsListening] = useState(false);
+  const [currentSoundName, setCurrentSoundName] = useState('');
 
   useEffect(() => {
     if (currentScreen === 'splash') {
@@ -57,6 +61,18 @@ function App() {
 
   const handleCategoryCreated = () => {
     setCurrentScreen('learn');
+  };
+
+  const handleAddSound = () => {
+    setCurrentScreen('add-sound');
+  };
+
+  const handleRecordSound = () => {
+    setCurrentScreen('sound-recording');
+  };
+
+  const handleSoundSaved = () => {
+    setCurrentScreen('library');
   };
 
   const renderScreen = () => {
@@ -160,6 +176,30 @@ function App() {
         );
       
       case 'library':
+        return (
+          <SoundLibrary
+            onNavigate={handleNavigate}
+            onAddSound={handleAddSound}
+          />
+        );
+      
+      case 'add-sound':
+        return (
+          <AddSound
+            onBack={() => handleNext('library')}
+            onRecord={handleRecordSound}
+          />
+        );
+      
+      case 'sound-recording':
+        return (
+          <SoundRecording
+            onBack={() => handleNext('add-sound')}
+            onSave={handleSoundSaved}
+            soundName={currentSoundName || 'New Sound'}
+          />
+        );
+      
       case 'settings':
         return (
           <div style={{ 
@@ -173,7 +213,7 @@ function App() {
             fontWeight: 'bold',
             paddingBottom: '80px'
           }}>
-            {currentScreen.charAt(0).toUpperCase() + currentScreen.slice(1)} Screen Coming Next! 🎉
+            Settings Screen Coming Next! 🎉
           </div>
         );
       
