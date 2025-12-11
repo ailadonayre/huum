@@ -11,6 +11,8 @@ import Learn from './pages/Learn/Learn';
 import Onboarding1 from './pages/Onboarding/Onboarding1';
 import Onboarding2 from './pages/Onboarding/Onboarding2';
 import Onboarding3 from './pages/Onboarding/Onboarding3';
+import Settings from './pages/Settings/Settings';
+import VisualFeedback from './pages/Settings/VisualFeedback';
 import SetupMicrophone from './pages/Setup/SetupMicrophone';
 import SetupNotifications from './pages/Setup/SetupNotifications';
 import AddSound from './pages/SoundLibrary/AddSound';
@@ -73,6 +75,12 @@ function App() {
 
   const handleSoundSaved = () => {
     setCurrentScreen('library');
+  };
+
+  const handleSettingClick = (setting) => {
+    if (setting === 'visual-feedback') {
+      setCurrentScreen('visual-feedback');
+    }
   };
 
   const renderScreen = () => {
@@ -202,19 +210,17 @@ function App() {
       
       case 'settings':
         return (
-          <div style={{ 
-            minHeight: '100vh', 
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center',
-            background: 'var(--color-white)',
-            color: 'var(--color-dark-purple)',
-            fontSize: '24px',
-            fontWeight: 'bold',
-            paddingBottom: '80px'
-          }}>
-            Settings Screen Coming Next! 🎉
-          </div>
+          <Settings
+            onNavigate={handleNavigate}
+            onSettingClick={handleSettingClick}
+          />
+        );
+      
+      case 'visual-feedback':
+        return (
+          <VisualFeedback
+            onBack={() => handleNext('settings')}
+          />
         );
       
       default:
