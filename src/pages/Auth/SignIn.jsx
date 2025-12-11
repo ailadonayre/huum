@@ -5,7 +5,7 @@ import Button from '../../components/Button/Button';
 import InputField from '../../components/InputField/InputField';
 import './Auth.css';
 
-const SignIn = ({ onBack, onSignIn, onCreateAccount }) => {
+const SignIn = ({ onBack, onSignIn, onCreateAccount, onForgotPassword }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -55,7 +55,9 @@ const SignIn = ({ onBack, onSignIn, onCreateAccount }) => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <a className="auth-link">Forgot Password?</a>
+            <a className="auth-link" onClick={onForgotPassword}>
+              Forgot Password?
+            </a>
           </div>
 
           <Button 
