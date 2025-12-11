@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 import './App.css';
+import Chatbot from './components/Chatbot/Chatbot';
 import Activity from './pages/Activity/Activity';
 import CreateAccount from './pages/Auth/CreateAccount';
+import ForgotPassword from './pages/Auth/ForgotPassword';
+import ResetPassword from './pages/Auth/ResetPassword';
 import SignIn from './pages/Auth/SignIn';
 import VerifyEmail from './pages/Auth/VerifyEmail';
 import Home from './pages/Home/Home';
@@ -25,6 +28,9 @@ function App() {
   const [userName, setUserName] = useState('User');
   const [isListening, setIsListening] = useState(false);
   const [currentSoundName, setCurrentSoundName] = useState('');
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [detectedSounds, setDetectedSounds] = useState([]);
+  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
   useEffect(() => {
     if (currentScreen === 'splash') {
@@ -34,6 +40,42 @@ function App() {
       return () => clearTimeout(timer);
     }
   }, [currentScreen]);
+
+  useEffect(() => {
+    // Apply theme to document
+    if (isDarkMode) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+  }, [isDarkMode]);
+
+  // Simulate sound detection when listening
+  useEffect(() => {
+    if (isListening) {
+      const soundSimulation = setInterval(() => {
+        const sounds = [
+          { category: 'Conversation', categoryColor: 'pink', description: 'People and Communication' },
+          { category: 'Music', categoryColor: 'green', description: 'Ambient' },
+          { category: 'Doorbell', categoryColor: 'orange', description: 'Safety' },
+          { category: 'Phone call', categoryColor: 'pink', description: 'People and Communication' },
+          { category: 'Car horn', categoryColor: 'green', description: 'Traffic' },
+        ];
+        
+        const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
+        const newSound = {
+          id: Date.now(),
+          ...randomSound,
+          time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+          timestamp: new Date(),
+        };
+        
+        setDetectedSounds(prev => [newSound, ...prev].slice(0, 20));
+      }, Math.random() * 15000 + 10000); // Random interval between 10-25 seconds
+
+      return () => clearInterval(soundSimulation);
+    }
+  }, [isListening]);
 
   const handleNext = (nextScreen) => {
     setCurrentScreen(nextScreen);
@@ -83,6 +125,14 @@ function App() {
     }
   };
 
+  const toggleListening = () => {
+    setIsListening(!isListening);
+  };
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
   const renderScreen = () => {
     switch (currentScreen) {
       case 'splash':
@@ -118,6 +168,23 @@ function App() {
             onBack={() => handleNext('onboarding3')}
             onSignIn={() => handleNext('setup-microphone')}
             onCreateAccount={() => handleNext('createaccount')}
+            onForgotPassword={() => handleNext('forgot-password')}
+          />
+        );
+      
+      case 'forgot-password':
+        return (
+          <ForgotPassword
+            onBack={() => handleNext('signin')}
+            onContinue={() => handleNext('reset-password')}
+          />
+        );
+      
+      case 'reset-password':
+        return (
+          <ResetPassword
+            onBack={() => handleNext('forgot-password')}
+            onReset={() => handleNext('signin')}
           />
         );
       
@@ -159,19 +226,31 @@ function App() {
       
       case 'home':
         return isListening ? (
-          <Listening onNavigate={handleNavigate} />
+          <Listening 
+            onNavigate={handleNavigate} 
+            detectedSounds={detectedSounds}
+            onToggleListening={toggleListening}
+            isDarkMode={isDarkMode}
+            onToggleDarkMode={toggleDarkMode}
+          />
         ) : (
-          <Home onNavigate={handleNavigate} />
+          <Home 
+            onNavigate={handleNavigate}
+            onToggleListening={toggleListening}
+            isDarkMode={isDarkMode}
+            onToggleDarkMode={toggleDarkMode}
+          />
         );
       
       case 'activity':
-        return <Activity onNavigate={handleNavigate} />;
+        return <Activity onNavigate={handleNavigate} detectedSounds={detectedSounds} />;
       
       case 'learn':
         return (
           <Learn 
             onNavigate={handleNavigate}
             onCreateCategory={handleCreateCategory}
+            detectedSounds={detectedSounds}
           />
         );
       
@@ -213,6 +292,8 @@ function App() {
           <Settings
             onNavigate={handleNavigate}
             onSettingClick={handleSettingClick}
+            isDarkMode={isDarkMode}
+            onToggleDarkMode={toggleDarkMode}
           />
         );
       
@@ -226,7 +307,12 @@ function App() {
     }
   };
 
-  return <div className="app">{renderScreen()}</div>;
+  return (
+    <div className="app">
+      {renderScreen()}
+      <Chatbot isOpen={isChatbotOpen} onToggle={() => setIsChatbotOpen(!isChatbotOpen)} />
+    </div>
+  );
 }
 
 export default App;
