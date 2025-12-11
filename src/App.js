@@ -218,9 +218,7 @@ function App() {
       
       case 'visual-feedback':
         return (
-          <VisualFeedback
-            onBack={() => handleNext('settings')}
-          />
+          <VisualFeedback onBack={() => handleNext('settings')} />
         );
       
       default:
