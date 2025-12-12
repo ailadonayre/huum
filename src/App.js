@@ -14,6 +14,9 @@ import Learn from './pages/Learn/Learn';
 import Onboarding1 from './pages/Onboarding/Onboarding1';
 import Onboarding2 from './pages/Onboarding/Onboarding2';
 import Onboarding3 from './pages/Onboarding/Onboarding3';
+import EditProfile from './pages/Settings/EditProfile';
+import HapticFeedback from './pages/Settings/HapticFeedback';
+import Notifications from './pages/Settings/Notifications';
 import Settings from './pages/Settings/Settings';
 import VisualFeedback from './pages/Settings/VisualFeedback';
 import SetupMicrophone from './pages/Setup/SetupMicrophone';
@@ -31,6 +34,14 @@ function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [detectedSounds, setDetectedSounds] = useState([]);
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [visualIntensity, setVisualIntensity] = useState(5);
+  const [hapticIntensity, setHapticIntensity] = useState(5);
+  const [notificationSettings, setNotificationSettings] = useState({
+    safety: true,
+    people: true,
+    ambient: false
+  });
 
   useEffect(() => {
     if (currentScreen === 'splash') {
@@ -42,7 +53,6 @@ function App() {
   }, [currentScreen]);
 
   useEffect(() => {
-    // Apply theme to document
     if (isDarkMode) {
       document.documentElement.setAttribute('data-theme', 'dark');
     } else {
@@ -50,16 +60,15 @@ function App() {
     }
   }, [isDarkMode]);
 
-  // Simulate sound detection when listening
   useEffect(() => {
     if (isListening) {
       const soundSimulation = setInterval(() => {
         const sounds = [
-          { category: 'Conversation', categoryColor: 'pink', description: 'People and Communication' },
-          { category: 'Music', categoryColor: 'green', description: 'Ambient' },
-          { category: 'Doorbell', categoryColor: 'orange', description: 'Safety' },
-          { category: 'Phone call', categoryColor: 'pink', description: 'People and Communication' },
-          { category: 'Car horn', categoryColor: 'green', description: 'Traffic' },
+          { category: 'Conversation', categoryColor: 'pink', description: 'People and Communication', icon: 'MessageCircle' },
+          { category: 'Music', categoryColor: 'green', description: 'Ambient', icon: 'Music' },
+          { category: 'Doorbell', categoryColor: 'orange', description: 'Safety', icon: 'Home' },
+          { category: 'Phone call', categoryColor: 'pink', description: 'People and Communication', icon: 'Phone' },
+          { category: 'Car horn', categoryColor: 'green', description: 'Traffic', icon: 'Car' },
         ];
         
         const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
@@ -71,7 +80,7 @@ function App() {
         };
         
         setDetectedSounds(prev => [newSound, ...prev].slice(0, 20));
-      }, Math.random() * 15000 + 10000); // Random interval between 10-25 seconds
+      }, Math.random() * 15000 + 10000);
 
       return () => clearInterval(soundSimulation);
     }
@@ -86,17 +95,7 @@ function App() {
   };
 
   const handleNavigate = (destination) => {
-    if (destination === 'home') {
-      setCurrentScreen('home');
-    } else if (destination === 'activity') {
-      setCurrentScreen('activity');
-    } else if (destination === 'learn') {
-      setCurrentScreen('learn');
-    } else if (destination === 'library') {
-      setCurrentScreen('library');
-    } else if (destination === 'settings') {
-      setCurrentScreen('settings');
-    }
+    setCurrentScreen(destination);
   };
 
   const handleCreateCategory = () => {
@@ -122,6 +121,12 @@ function App() {
   const handleSettingClick = (setting) => {
     if (setting === 'visual-feedback') {
       setCurrentScreen('visual-feedback');
+    } else if (setting === 'haptic-feedback') {
+      setCurrentScreen('haptic-feedback');
+    } else if (setting === 'notifications') {
+      setCurrentScreen('notifications');
+    } else if (setting === 'edit-profile') {
+      setCurrentScreen('edit-profile');
     }
   };
 
@@ -131,6 +136,18 @@ function App() {
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
+  };
+
+  const handleSignIn = () => {
+    setIsAuthenticated(true);
+    handleNext('setup-microphone');
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setDetectedSounds([]);
+    setIsListening(false);
+    setCurrentScreen('signin');
   };
 
   const renderScreen = () => {
@@ -166,7 +183,7 @@ function App() {
         return (
           <SignIn
             onBack={() => handleNext('onboarding3')}
-            onSignIn={() => handleNext('setup-microphone')}
+            onSignIn={handleSignIn}
             onCreateAccount={() => handleNext('createaccount')}
             onForgotPassword={() => handleNext('forgot-password')}
           />
@@ -201,7 +218,7 @@ function App() {
         return (
           <VerifyEmail
             onBack={() => handleNext('createaccount')}
-            onVerify={() => handleNext('setup-microphone')}
+            onVerify={handleSignIn}
           />
         );
       
@@ -232,6 +249,7 @@ function App() {
             onToggleListening={toggleListening}
             isDarkMode={isDarkMode}
             onToggleDarkMode={toggleDarkMode}
+            visualIntensity={visualIntensity}
           />
         ) : (
           <Home 
@@ -239,6 +257,7 @@ function App() {
             onToggleListening={toggleListening}
             isDarkMode={isDarkMode}
             onToggleDarkMode={toggleDarkMode}
+            detectedSounds={detectedSounds}
           />
         );
       
@@ -294,12 +313,44 @@ function App() {
             onSettingClick={handleSettingClick}
             isDarkMode={isDarkMode}
             onToggleDarkMode={toggleDarkMode}
+            onLogout={handleLogout}
           />
         );
       
       case 'visual-feedback':
         return (
-          <VisualFeedback onBack={() => handleNext('settings')} />
+          <VisualFeedback 
+            onBack={() => handleNext('settings')}
+            intensity={visualIntensity}
+            onIntensityChange={setVisualIntensity}
+          />
+        );
+
+      case 'haptic-feedback':
+        return (
+          <HapticFeedback 
+            onBack={() => handleNext('settings')}
+            intensity={hapticIntensity}
+            onIntensityChange={setHapticIntensity}
+          />
+        );
+
+      case 'notifications':
+        return (
+          <Notifications 
+            onBack={() => handleNext('settings')}
+            settings={notificationSettings}
+            onSettingsChange={setNotificationSettings}
+          />
+        );
+
+      case 'edit-profile':
+        return (
+          <EditProfile 
+            onBack={() => handleNext('settings')}
+            userName={userName}
+            onSave={(newName) => setUserName(newName)}
+          />
         );
       
       default:
@@ -310,7 +361,12 @@ function App() {
   return (
     <div className="app">
       {renderScreen()}
-      <Chatbot isOpen={isChatbotOpen} onToggle={() => setIsChatbotOpen(!isChatbotOpen)} />
+      {isAuthenticated && (
+        <Chatbot 
+          isOpen={isChatbotOpen} 
+          onToggle={() => setIsChatbotOpen(!isChatbotOpen)} 
+        />
+      )}
     </div>
   );
 }

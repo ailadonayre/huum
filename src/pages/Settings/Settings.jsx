@@ -1,20 +1,19 @@
 import {
-    Bell,
-    ChevronRight,
-    Eye,
-    HelpCircle,
-    Info,
-    LogOut,
-    Shield,
-    User,
-    Vibrate
+  Bell,
+  ChevronRight,
+  Eye,
+  HelpCircle,
+  Info,
+  LogOut,
+  Shield,
+  Vibrate
 } from 'lucide-react';
 import { useState } from 'react';
 import BottomNav from '../../components/BottomNav/BottomNav';
 import SettingsItem from '../../components/SettingsItem/SettingsItem';
 import './Settings.css';
 
-const Settings = ({ onNavigate, onSettingClick }) => {
+const Settings = ({ onNavigate, onSettingClick, isDarkMode, onToggleDarkMode, onLogout }) => {
   const [activeTab, setActiveTab] = useState('settings');
   const [visualFeedback, setVisualFeedback] = useState(true);
   const [hapticFeedback, setHapticFeedback] = useState(true);
@@ -25,11 +24,6 @@ const Settings = ({ onNavigate, onSettingClick }) => {
     onNavigate(tab);
   };
 
-  const handleSignOut = () => {
-    console.log('Signing out...');
-    // Handle sign out logic
-  };
-
   return (
     <div className="settings-screen">
       <div className="settings-header">
@@ -37,8 +31,7 @@ const Settings = ({ onNavigate, onSettingClick }) => {
       </div>
 
       <div className="settings-content">
-        {/* Account Section */}
-        <div className="settings-account">
+        <div className="settings-account" onClick={() => onSettingClick('edit-profile')}>
           <div className="settings-account-avatar">
             JD
           </div>
@@ -49,51 +42,36 @@ const Settings = ({ onNavigate, onSettingClick }) => {
           <ChevronRight className="settings-account-arrow" size={20} />
         </div>
 
-        {/* Feedback Settings */}
         <div className="settings-section">
           <h3 className="settings-section-title">Feedback</h3>
           <div className="settings-items">
             <SettingsItem
               icon={Eye}
               title="Visual Feedback"
-              description="Show visual alerts for detected sounds"
-              toggle={true}
-              toggleValue={visualFeedback}
-              onToggleChange={setVisualFeedback}
+              description="Customize visual cues"
+              onClick={() => onSettingClick('visual-feedback')}
               color="purple"
             />
             <SettingsItem
               icon={Vibrate}
               title="Haptic Feedback"
-              description="Vibrate when sounds are detected"
-              toggle={true}
-              toggleValue={hapticFeedback}
-              onToggleChange={setHapticFeedback}
+              description="Control vibration alerts"
+              onClick={() => onSettingClick('haptic-feedback')}
               color="purple"
             />
             <SettingsItem
               icon={Bell}
               title="Notifications"
-              description="Receive push notifications"
-              toggle={true}
-              toggleValue={notifications}
-              onToggleChange={setNotifications}
+              description="Choose which sounds to track"
+              onClick={() => onSettingClick('notifications')}
               color="purple"
             />
           </div>
         </div>
 
-        {/* Account Settings */}
         <div className="settings-section">
           <h3 className="settings-section-title">Account</h3>
           <div className="settings-items">
-            <SettingsItem
-              icon={User}
-              title="Profile"
-              description="Manage your account details"
-              onClick={() => console.log('Profile clicked')}
-              color="pink"
-            />
             <SettingsItem
               icon={Shield}
               title="Privacy and Permissions"
@@ -104,7 +82,6 @@ const Settings = ({ onNavigate, onSettingClick }) => {
           </div>
         </div>
 
-        {/* More Settings */}
         <div className="settings-section">
           <h3 className="settings-section-title">More</h3>
           <div className="settings-items">
@@ -125,13 +102,11 @@ const Settings = ({ onNavigate, onSettingClick }) => {
           </div>
         </div>
 
-        {/* Sign Out Button */}
-        <button className="settings-signout" onClick={handleSignOut}>
+        <button className="settings-signout" onClick={onLogout}>
           <LogOut />
           <span>Sign Out</span>
         </button>
 
-        {/* Version */}
         <div className="settings-version">
           Version 1.0.0
         </div>

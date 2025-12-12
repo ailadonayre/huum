@@ -1,0 +1,107 @@
+.notifications-screen {
+  min-height: 100vh;
+  width: 100%;
+  background: var(--gradient-purple-bg);
+  display: flex;
+  flex-direction: column;
+  color: var(--color-white);
+  position: relative;
+  overflow-y: auto;
+}
+
+.notifications-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  animation: fadeInDown var(--transition-base) ease-out;
+}
+
+.notifications-back {
+  background: none;
+  border: none;
+  color: var(--color-white);
+  cursor: pointer;
+  padding: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity var(--transition-fast);
+}
+
+.notifications-back:hover {
+  opacity: 0.8;
+}
+
+.notifications-title {
+  flex: 1;
+  text-align: center;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.notifications-spacer {
+  width: 40px;
+}
+
+.notifications-content {
+  flex: 1;
+  padding: var(--spacing-xl) var(--spacing-lg) var(--spacing-3xl);
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+  animation: fadeInUp var(--transition-slow) ease-out;
+}
+
+.notifications-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-2xl);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-lg);
+}
+
+.notifications-icon-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.notifications-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--gradient-purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  animation: gentlePulse 2s ease-in-out infinite;
+}
+
+.notifications-section {
+  margin-bottom: var(--spacing-xl);
+}
+
+.notifications-section:last-child {
+  margin-bottom: 0;
+}
+
+.notifications-section-title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-dark-purple);
+  margin-bottom: var(--spacing-sm);
+}
+
+.notifications-section-description {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-lg);
+}
+
+.notifications-items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
