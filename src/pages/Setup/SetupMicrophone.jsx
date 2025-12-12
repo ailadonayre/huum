@@ -23,7 +23,7 @@ const SetupMicrophone = ({ onNext, onBack, onSkip, userName = 'User' }) => {
       </div>
 
       <div className="setup-content">
-        <h2 className="setup-greeting">[{userName}], let's finish setting up huum</h2>
+        <h2 className="setup-greeting">{userName}, let's finish setting up huum</h2>
         
         <h1 className="setup-title">
           We need <br />
