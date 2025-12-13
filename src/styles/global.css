@@ -135,6 +135,7 @@ input::-webkit-inner-spin-button {
 
 input[type=number] {
   -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 /* Lists */
@@ -186,4 +187,78 @@ img {
 *:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
+}
+
+/* Mobile viewport fix */
+@supports (-webkit-touch-callout: none) {
+  .app,
+  .screen,
+  .home-screen,
+  .activity-screen,
+  .learn-screen,
+  .settings-screen {
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* Ensure full viewport on mobile */
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
+html {
+  touch-action: manipulation;
+}
+
+body {
+  overscroll-behavior-y: none;
+}
+
+/* Fix for mobile address bar */
+@media screen and (max-width: 768px) {
+  .app {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+  
+  /* Prevent horizontal scroll on mobile */
+  * {
+    max-width: 100%;
+  }
+}
+
+/* Center content properly */
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+}
+
+/* Button centering */
+button,
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Fix bottom navigation spacing */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .bottom-nav {
+    padding-bottom: calc(var(--spacing-sm) + env(safe-area-inset-bottom));
+  }
+  
+  .home-screen,
+  .activity-screen,
+  .learn-screen,
+  .settings-screen {
+    padding-bottom: calc(80px + env(safe-area-inset-bottom));
+  }
 }

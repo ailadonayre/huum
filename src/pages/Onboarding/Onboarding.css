@@ -1,5 +1,7 @@
+/* Update src/pages/Onboarding/Onboarding.css */
 .onboarding-screen {
   min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
   background: var(--gradient-purple-bg);
   display: flex;
@@ -7,9 +9,9 @@
   position: relative;
   color: var(--color-white);
   padding: var(--spacing-xl) var(--spacing-lg);
+  padding-bottom: calc(var(--spacing-xl) + env(safe-area-inset-bottom));
 }
 
-/* Top skip button */
 .onboarding-header {
   display: flex;
   justify-content: flex-end;
@@ -32,7 +34,6 @@
   opacity: 1;
 }
 
-/* Content area */
 .onboarding-content {
   flex: 1;
   display: flex;
@@ -42,6 +43,7 @@
   text-align: center;
   gap: var(--spacing-xl);
   padding: var(--spacing-lg) 0;
+  max-width: 100%;
 }
 
 .onboarding-icon-wrapper {
@@ -50,6 +52,7 @@
 
 .onboarding-text {
   max-width: 320px;
+  width: 100%;
   animation: fadeInUp var(--transition-slow) ease-out forwards;
   animation-delay: 300ms;
   opacity: 0;
@@ -74,7 +77,6 @@
   font-weight: var(--font-weight-regular);
 }
 
-/* Bottom section */
 .onboarding-footer {
   display: flex;
   flex-direction: column;
@@ -84,6 +86,7 @@
   animation: fadeInUp var(--transition-slow) ease-out forwards;
   animation-delay: 500ms;
   opacity: 0;
+  width: 100%;
 }
 
 .onboarding-actions {
@@ -91,7 +94,16 @@
   max-width: 280px;
 }
 
-/* Mobile responsiveness */
+@media (max-width: 375px) {
+  .onboarding-title {
+    font-size: var(--font-size-xl);
+  }
+  
+  .onboarding-description {
+    font-size: var(--font-size-sm);
+  }
+}
+
 @media (min-width: 768px) {
   .onboarding-content {
     gap: var(--spacing-2xl);
@@ -117,5 +129,11 @@
   
   .onboarding-icon-wrapper {
     margin-bottom: var(--spacing-md);
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  .onboarding-screen {
+    min-height: -webkit-fill-available;
   }
 }

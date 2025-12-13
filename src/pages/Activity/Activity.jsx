@@ -1,149 +1,129 @@
 import {
-    Activity as ActivityIcon,
-    AlertCircle,
-    Car,
-    Filter,
-    Home as HomeIcon,
-    MessageCircle,
-    Music,
-    Phone
+  Activity as ActivityIcon,
+  AlertCircle,
+  Bell,
+  Car,
+  Filter,
+  Home as HomeIcon,
+  MessageCircle,
+  Music,
+  Phone,
+  TrendingUp
 } from 'lucide-react';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import BottomNav from '../../components/BottomNav/BottomNav';
 import './Activity.css';
 
-const Activity = ({ onNavigate }) => {
+const Activity = ({ onNavigate, detectedSounds }) => {
   const [activeTab, setActiveTab] = useState('activity');
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   const categories = [
     { id: 'all', label: 'All', icon: null },
-    { id: 'people', label: 'People and Communication', color: 'pink', icon: MessageCircle },
-    { id: 'doorbell', label: 'Doorbell', color: 'orange', icon: HomeIcon },
+    { id: 'people', label: 'People', color: 'pink', icon: MessageCircle },
+    { id: 'safety', label: 'Safety', color: 'orange', icon: Bell },
     { id: 'ambient', label: 'Ambient', color: 'green', icon: Music },
-    { id: 'traffic', label: 'Traffic', color: 'purple', icon: Car },
+    { id: 'alerts', label: 'Alerts', color: 'purple', icon: AlertCircle },
   ];
 
-  const activities = [
-    {
-      id: 1,
-      category: 'Conversation',
-      categoryColor: 'pink',
-      icon: MessageCircle,
-      time: '10:23 AM',
-      description: 'People and Communication',
-      tags: ['Indoor', 'Low Volume'],
-      badge: '🗣️',
-      date: 'Today',
-    },
-    {
-      id: 2,
-      category: 'Music',
-      categoryColor: 'green',
-      icon: Music,
-      time: '10:15 AM',
-      description: 'Ambient',
-      tags: ['Music', 'Background'],
-      badge: '🎵',
-      date: 'Today',
-    },
-    {
-      id: 3,
-      category: 'Doorbell',
-      categoryColor: 'orange',
-      icon: HomeIcon,
-      time: '09:45 AM',
-      description: 'Doorbell',
-      tags: ['Alert', 'Outdoor'],
-      badge: '🔔',
-      date: 'Today',
-    },
-    {
-      id: 4,
-      category: 'Phone call',
-      categoryColor: 'pink',
-      icon: Phone,
-      time: '09:30 AM',
-      description: 'People and Communication',
-      tags: ['Phone', 'Indoor'],
-      badge: '📞',
-      date: 'Today',
-    },
-    {
-      id: 5,
-      category: 'Car horn',
-      categoryColor: 'purple',
-      icon: Car,
-      time: 'Yesterday, 6:12 PM',
-      description: 'Traffic',
-      tags: ['Outdoor', 'Loud'],
-      badge: '🚗',
-      date: 'Yesterday',
-    },
-    {
-      id: 6,
-      category: 'Fire alarm',
-      categoryColor: 'orange',
-      icon: AlertCircle,
-      time: 'Yesterday, 2:30 PM',
-      description: 'Oven timer',
-      tags: ['Alert', 'Indoor', 'High Volume'],
-      badge: '⏰',
-      date: 'Yesterday',
-    },
-    {
-      id: 7,
-      category: 'Knocking',
-      categoryColor: 'orange',
-      icon: HomeIcon,
-      time: 'Yesterday, 11:20 AM',
-      description: 'Doorbell',
-      tags: ['Alert', 'Indoor'],
-      badge: '🚪',
-      date: 'Yesterday',
-    },
-  ];
+  const filteredActivities = useMemo(() => {
+    if (selectedCategory === 'all') return detectedSounds;
+    
+    return detectedSounds.filter(activity => {
+      if (selectedCategory === 'people') return activity.categoryColor === 'pink';
+      if (selectedCategory === 'safety') return activity.categoryColor === 'orange';
+      if (selectedCategory === 'ambient') return activity.categoryColor === 'green';
+      if (selectedCategory === 'alerts') return activity.categoryColor === 'purple';
+      return true;
+    });
+  }, [detectedSounds, selectedCategory]);
 
-  const filteredActivities = selectedCategory === 'all' 
-    ? activities 
-    : activities.filter(activity => {
-        if (selectedCategory === 'people') return activity.categoryColor === 'pink';
-        if (selectedCategory === 'doorbell') return activity.category.toLowerCase().includes('doorbell') || activity.category.toLowerCase().includes('knocking');
-        if (selectedCategory === 'ambient') return activity.categoryColor === 'green';
-        if (selectedCategory === 'traffic') return activity.categoryColor === 'purple' || activity.category.toLowerCase().includes('car');
-        return true;
-      });
-
-  // Group activities by date
-  const groupedActivities = filteredActivities.reduce((groups, activity) => {
-    const date = activity.date;
-    if (!groups[date]) {
-      groups[date] = [];
-    }
-    groups[date].push(activity);
+  const groupedActivities = useMemo(() => {
+    const groups = {};
+    
+    filteredActivities.forEach(activity => {
+      const date = new Date(activity.timestamp);
+      const today = new Date();
+      const yesterday = new Date(today);
+      yesterday.setDate(yesterday.getDate() - 1);
+      
+      let dateLabel;
+      if (date.toDateString() === today.toDateString()) {
+        dateLabel = 'Today';
+      } else if (date.toDateString() === yesterday.toDateString()) {
+        dateLabel = 'Yesterday';
+      } else {
+        dateLabel = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      }
+      
+      if (!groups[dateLabel]) {
+        groups[dateLabel] = [];
+      }
+      groups[dateLabel].push(activity);
+    });
+    
     return groups;
-  }, {});
+  }, [filteredActivities]);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
     onNavigate(tab);
   };
 
-  const getCategoryIcon = (icon) => {
-    const Icon = icon;
-    return <Icon strokeWidth={2} />;
+  const getIconComponent = (category) => {
+    switch (category) {
+      case 'Conversation':
+        return MessageCircle;
+      case 'Music':
+        return Music;
+      case 'Doorbell':
+        return HomeIcon;
+      case 'Phone call':
+        return Phone;
+      case 'Car horn':
+        return Car;
+      default:
+        return Bell;
+    }
   };
+
+  const activityStats = useMemo(() => {
+    const total = detectedSounds.length;
+    const todayCount = detectedSounds.filter(s => {
+      const date = new Date(s.timestamp);
+      const today = new Date();
+      return date.toDateString() === today.toDateString();
+    }).length;
+    
+    return { total, today: todayCount };
+  }, [detectedSounds]);
 
   return (
     <div className="activity-screen">
       <div className="activity-header">
         <div className="activity-header-top">
-          <h1 className="activity-title">Activity</h1>
+          <div>
+            <h1 className="activity-title">Activity</h1>
+            <p className="activity-subtitle">{activityStats.total} sounds detected</p>
+          </div>
           <button className="activity-filter-button" aria-label="Filter activities">
             <Filter />
-            <span>Filter</span>
           </button>
         </div>
+
+        {activityStats.today > 0 && (
+          <div className="activity-stats">
+            <div className="activity-stat-card">
+              <div className="activity-stat-icon">
+                <TrendingUp size={20} />
+              </div>
+              <div className="activity-stat-content">
+                <p className="activity-stat-value">{activityStats.today}</p>
+                <p className="activity-stat-label">Today</p>
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className="activity-tabs">
           {categories.map((category) => (
@@ -177,7 +157,9 @@ const Activity = ({ onNavigate }) => {
             </div>
             <h2 className="activity-empty-title">No activities yet</h2>
             <p className="activity-empty-description">
-              Start listening to see detected sounds appear here
+              {selectedCategory === 'all' 
+                ? "Start listening to see detected sounds appear here"
+                : `No ${selectedCategory} sounds detected yet`}
             </p>
           </div>
         ) : (
@@ -185,47 +167,43 @@ const Activity = ({ onNavigate }) => {
             <div key={date} className="activity-date-section">
               <div className="activity-date-header">
                 <h2 className="activity-date-title">{date}</h2>
-                <div className="activity-date-line"></div>
+                <span className="activity-date-count">{items.length}</span>
               </div>
               
               <div className="activity-items">
-                {items.map((activity, index) => (
-                  <div 
-                    key={activity.id} 
-                    className="activity-card-detailed"
-                    style={{ animationDelay: `${index * 50}ms` }}
-                  >
-                    <div className="activity-card-icon-wrapper">
-                      <div 
-                        className="activity-card-icon-large"
-                        style={{
-                          background: activity.categoryColor === 'pink' ? 'var(--gradient-pink)' :
-                                     activity.categoryColor === 'orange' ? 'var(--gradient-orange)' :
-                                     activity.categoryColor === 'green' ? 'var(--gradient-green)' :
-                                     'var(--gradient-purple)'
-                        }}
-                      >
-                        {getCategoryIcon(activity.icon)}
+                {items.map((activity, index) => {
+                  const IconComponent = getIconComponent(activity.category);
+                  return (
+                    <div 
+                      key={activity.id} 
+                      className="activity-card-detailed"
+                      style={{ animationDelay: `${index * 50}ms` }}
+                    >
+                      <div className="activity-card-icon-wrapper">
+                        <div 
+                          className="activity-card-icon-large"
+                          style={{
+                            background: activity.categoryColor === 'pink' ? 'var(--gradient-pink)' :
+                                       activity.categoryColor === 'orange' ? 'var(--gradient-orange)' :
+                                       activity.categoryColor === 'green' ? 'var(--gradient-green)' :
+                                       'var(--gradient-purple)'
+                          }}
+                        >
+                          <IconComponent strokeWidth={2} />
+                        </div>
+                        <div className="activity-card-pulse"></div>
                       </div>
-                      <div className="activity-card-badge">
-                        {activity.badge}
-                      </div>
-                    </div>
 
-                    <div className="activity-card-details">
-                      <div className="activity-card-header">
-                        <h3 className="activity-card-category">{activity.category}</h3>
-                        <span className="activity-card-time">{activity.time}</span>
-                      </div>
-                      <p className="activity-card-description">{activity.description}</p>
-                      <div className="activity-card-tags">
-                        {activity.tags.map((tag, idx) => (
-                          <span key={idx} className="activity-tag">{tag}</span>
-                        ))}
+                      <div className="activity-card-details">
+                        <div className="activity-card-header">
+                          <h3 className="activity-card-category">{activity.category}</h3>
+                          <span className="activity-card-time">{activity.time}</span>
+                        </div>
+                        <p className="activity-card-description">{activity.description}</p>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           ))

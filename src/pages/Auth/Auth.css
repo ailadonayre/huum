@@ -344,3 +344,57 @@
   color: var(--color-green);
   font-weight: var(--font-weight-bold);
 }
+
+/* Update src/pages/Auth/Auth.css - add these at the end */
+
+@supports (-webkit-touch-callout: none) {
+  .auth-screen,
+  .edit-profile-screen,
+  .visual-feedback-screen,
+  .haptic-feedback-screen,
+  .notifications-screen {
+    min-height: -webkit-fill-available;
+  }
+}
+
+@media (max-width: 375px) {
+  .auth-form {
+    padding: var(--spacing-lg);
+  }
+  
+  .verify-code-input {
+    width: 40px;
+    height: 48px;
+    font-size: var(--font-size-xl);
+  }
+  
+  .verify-code-inputs {
+    gap: var(--spacing-sm);
+  }
+  
+  .auth-title {
+    font-size: var(--font-size-xl);
+  }
+}
+
+@media (min-width: 768px) {
+  .auth-content {
+    padding: var(--spacing-xl);
+  }
+  
+  .auth-title {
+    font-size: var(--font-size-3xl);
+  }
+}
+
+/* Ensure buttons are centered */
+.auth-submit-button,
+.auth-social-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-form {
+  width: 100%;
+}

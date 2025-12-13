@@ -85,3 +85,47 @@
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
+
+/* Enhanced Dark Mode */
+[data-theme="dark"] {
+  --color-white: #1A1A2E;
+  --color-bg-primary: #16213E;
+  --color-bg-secondary: #0F1419;
+  --color-text-primary: #FEFFFC;
+  --color-text-secondary: #ABA3B8;
+  --color-dark-purple: #FEFFFC;
+  --color-border: #2D3748;
+  --color-light-gray: #2D3748;
+  --gradient-purple-bg: linear-gradient(180deg, #1A1A2E 0%, #16213E 100%);
+  
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .home-header,
+[data-theme="dark"] .learn-header {
+  background: linear-gradient(180deg, #2D3748 0%, #1A1A2E 100%);
+}
+
+[data-theme="dark"] .listening-circle-inner,
+[data-theme="dark"] .activity-card-detailed,
+[data-theme="dark"] .learn-category-card {
+  border-color: #2D3748;
+}
+
+[data-theme="dark"] .waveform-bar {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* Smooth theme transition */
+* {
+  transition: background-color 0.3s ease, 
+              color 0.3s ease, 
+              border-color 0.3s ease;
+}
+
+/* Prevent transition on page load */
+.app.preload * {
+  transition: none !important;
+}

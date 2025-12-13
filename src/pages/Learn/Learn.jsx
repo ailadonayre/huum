@@ -1,16 +1,19 @@
 import {
-    Lightbulb,
-    MessageCircle,
-    MoreVertical,
-    Music,
-    Plus,
-    Volume2
+  BookOpen,
+  Brain,
+  Lightbulb,
+  MessageCircle,
+  MoreVertical,
+  Music,
+  Plus,
+  Sparkles,
+  Volume2
 } from 'lucide-react';
 import { useState } from 'react';
 import BottomNav from '../../components/BottomNav/BottomNav';
 import './Learn.css';
 
-const Learn = ({ onNavigate, onCreateCategory }) => {
+const Learn = ({ onNavigate, onCreateCategory, detectedSounds }) => {
   const [activeTab, setActiveTab] = useState('learn');
 
   const categories = [
@@ -21,6 +24,7 @@ const Learn = ({ onNavigate, onCreateCategory }) => {
       icon: Volume2,
       soundCount: 4,
       sounds: ['Fire alarm', 'Car horn', 'Oven timer', 'Glass break'],
+      learned: 87,
     },
     {
       id: 2,
@@ -29,6 +33,7 @@ const Learn = ({ onNavigate, onCreateCategory }) => {
       icon: MessageCircle,
       soundCount: 3,
       sounds: ['Conversation', 'Phone call', 'Doorbell'],
+      learned: 92,
     },
     {
       id: 3,
@@ -37,6 +42,7 @@ const Learn = ({ onNavigate, onCreateCategory }) => {
       icon: Music,
       soundCount: 5,
       sounds: ['Music', 'Traffic', 'Rain', 'Birds', 'Wind'],
+      learned: 78,
     },
     {
       id: 4,
@@ -45,8 +51,12 @@ const Learn = ({ onNavigate, onCreateCategory }) => {
       icon: Volume2,
       soundCount: 2,
       sounds: ['Text notification', 'Email alert'],
+      learned: 95,
     },
   ];
+
+  const recentLearning = detectedSounds.slice(0, 3);
+  const totalSounds = categories.reduce((sum, cat) => sum + cat.soundCount, 0);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -71,14 +81,31 @@ const Learn = ({ onNavigate, onCreateCategory }) => {
   return (
     <div className="learn-screen">
       <div className="learn-header">
-        <h1 className="learn-title">Learn</h1>
-        <p className="learn-subtitle">
-          Teach huum to recognize sounds in your environment
-        </p>
+        <div className="learn-header-content">
+          <div className="learn-header-icon">
+            <Brain size={24} />
+          </div>
+          <div>
+            <h1 className="learn-title">Learn</h1>
+            <p className="learn-subtitle">
+              Teaching huum to recognize your environment
+            </p>
+          </div>
+        </div>
+        
+        <div className="learn-stats-row">
+          <div className="learn-stat-mini">
+            <BookOpen size={16} />
+            <span>{totalSounds} sounds</span>
+          </div>
+          <div className="learn-stat-mini">
+            <Sparkles size={16} />
+            <span>{categories.length} categories</span>
+          </div>
+        </div>
       </div>
 
       <div className="learn-content">
-        {/* Create New Category Card */}
         <div 
           className="learn-create-card"
           onClick={onCreateCategory}
@@ -86,76 +113,108 @@ const Learn = ({ onNavigate, onCreateCategory }) => {
           <div className="learn-create-icon">
             <Plus />
           </div>
-          <h2 className="learn-create-title">Create a new category</h2>
-          <p className="learn-create-description">
-            Group sounds together to help huum learn what matters to you
-          </p>
+          <div className="learn-create-content">
+            <h2 className="learn-create-title">Create a new category</h2>
+            <p className="learn-create-description">
+              Group sounds to help huum learn what matters to you
+            </p>
+          </div>
         </div>
 
-        {/* Categories Section */}
+        {recentLearning.length > 0 && (
+          <div className="learn-recent-section">
+            <h3 className="learn-section-title">
+              <Lightbulb size={18} />
+              Recently Detected
+            </h3>
+            <div className="learn-recent-items">
+              {recentLearning.map((sound, index) => (
+                <div 
+                  key={sound.id} 
+                  className="learn-recent-item"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <div 
+                    className="learn-recent-dot"
+                    style={{
+                      background: sound.categoryColor === 'pink' ? 'var(--gradient-pink)' :
+                                 sound.categoryColor === 'orange' ? 'var(--gradient-orange)' :
+                                 sound.categoryColor === 'green' ? 'var(--gradient-green)' :
+                                 'var(--gradient-purple)'
+                    }}
+                  />
+                  <span className="learn-recent-text">{sound.category}</span>
+                  <span className="learn-recent-time">{sound.time}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="learn-categories-section">
           <div className="learn-section-header">
-            <h2 className="learn-section-title">Your Categories</h2>
+            <h2 className="learn-section-title-main">Your Categories</h2>
             <span className="learn-section-count">{categories.length}</span>
           </div>
 
-          {categories.length === 0 ? (
-            <div className="learn-empty">
-              <div className="learn-empty-icon">
-                <Lightbulb />
-              </div>
-              <h3 className="learn-empty-title">No categories yet</h3>
-              <p className="learn-empty-description">
-                Create your first category to start teaching huum about the sounds in your environment
-              </p>
-            </div>
-          ) : (
-            <div className="learn-categories-grid">
-              {categories.map((category, index) => {
-                const Icon = category.icon;
-                return (
-                  <div 
-                    key={category.id} 
-                    className="learn-category-card"
-                    style={{ animationDelay: `${index * 50}ms` }}
-                  >
-                    <div className="learn-category-header">
-                      <div 
-                        className="learn-category-icon-wrapper"
-                        style={{ background: getGradient(category.color) }}
-                      >
-                        <Icon strokeWidth={2} />
-                      </div>
-                      <button 
-                        className="learn-category-menu"
-                        aria-label="Category options"
-                      >
-                        <MoreVertical size={20} />
-                      </button>
+          <div className="learn-categories-grid">
+            {categories.map((category, index) => {
+              const Icon = category.icon;
+              return (
+                <div 
+                  key={category.id} 
+                  className="learn-category-card"
+                  style={{ animationDelay: `${index * 50}ms` }}
+                >
+                  <div className="learn-category-header">
+                    <div 
+                      className="learn-category-icon-wrapper"
+                      style={{ background: getGradient(category.color) }}
+                    >
+                      <Icon strokeWidth={2} />
                     </div>
-
-                    <h3 className="learn-category-name">{category.name}</h3>
-                    <p className="learn-category-sounds">
-                      {category.soundCount} {category.soundCount === 1 ? 'sound' : 'sounds'}
-                    </p>
-
-                    <div className="learn-category-items">
-                      {category.sounds.slice(0, 3).map((sound, idx) => (
-                        <span key={idx} className="learn-category-item">
-                          {sound}
-                        </span>
-                      ))}
-                      {category.sounds.length > 3 && (
-                        <span className="learn-category-item">
-                          +{category.sounds.length - 3} more
-                        </span>
-                      )}
-                    </div>
+                    <button 
+                      className="learn-category-menu"
+                      aria-label="Category options"
+                    >
+                      <MoreVertical size={20} />
+                    </button>
                   </div>
-                );
-              })}
-            </div>
-          )}
+
+                  <h3 className="learn-category-name">{category.name}</h3>
+                  <p className="learn-category-sounds">
+                    {category.soundCount} {category.soundCount === 1 ? 'sound' : 'sounds'}
+                  </p>
+
+                  <div className="learn-category-progress">
+                    <div className="learn-progress-bar">
+                      <div 
+                        className="learn-progress-fill"
+                        style={{ 
+                          width: `${category.learned}%`,
+                          background: getGradient(category.color)
+                        }}
+                      />
+                    </div>
+                    <span className="learn-progress-text">{category.learned}% learned</span>
+                  </div>
+
+                  <div className="learn-category-items">
+                    {category.sounds.slice(0, 2).map((sound, idx) => (
+                      <span key={idx} className="learn-category-item">
+                        {sound}
+                      </span>
+                    ))}
+                    {category.sounds.length > 2 && (
+                      <span className="learn-category-item learn-category-more">
+                        +{category.sounds.length - 2} more
+                      </span>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
 
