@@ -136,6 +136,12 @@
   color: var(--color-primary);
 }
 
+/* 'Recently Detected' should not be all-caps */
+.learn-recent-section .learn-section-title {
+  text-transform: none;
+  letter-spacing: 0;
+}
+
 .learn-recent-items {
   display: flex;
   flex-direction: column;

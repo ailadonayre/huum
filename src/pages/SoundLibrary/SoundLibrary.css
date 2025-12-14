@@ -484,6 +484,19 @@
   height: 20px;
 }
 
+.sound-library-logo-new {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
+}
+
+.sound-library-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-lg);
+}
+
 @media (max-width: 480px) {
   .sound-library-grid {
     grid-template-columns: 1fr;

@@ -7,9 +7,11 @@ import {
   MessageCircle,
   Music,
   Phone,
+  Sparkles,
   TrendingUp
 } from 'lucide-react';
 import { useMemo, useState } from 'react';
+import logoPurpleText from '../../assets/icons/huum logo-purple-text.png';
 import BottomNav from '../../components/BottomNav/BottomNav';
 import './Activity.css';
 
@@ -94,58 +96,85 @@ const Activity = ({ onNavigate, detectedSounds }) => {
       return date.toDateString() === today.toDateString();
     }).length;
     
-    return { total, today: todayCount };
+    const categoryBreakdown = {
+      people: detectedSounds.filter(s => s.categoryColor === 'pink').length,
+      safety: detectedSounds.filter(s => s.categoryColor === 'orange').length,
+      ambient: detectedSounds.filter(s => s.categoryColor === 'green').length,
+    };
+    
+    return { total, today: todayCount, breakdown: categoryBreakdown };
   }, [detectedSounds]);
 
   return (
     <div className="activity-screen">
       <div className="activity-header">
         <div className="activity-header-top">
-          <div>
-            <h1 className="activity-title">Activity</h1>
-            <p className="activity-subtitle">{activityStats.total} sounds detected</p>
+          <img src={logoPurpleText} alt="huum" className="activity-logo-new" />
+          <div className="activity-stats-pills">
+            <div className="activity-stat-pill">
+              <Sparkles size={14} />
+              <span>{activityStats.total}</span>
+            </div>
+            <div className="activity-stat-pill">
+              <TrendingUp size={14} />
+              <span>{activityStats.today}</span>
+            </div>
           </div>
         </div>
+      </div>
 
+      <div className="activity-content">
         {activityStats.today > 0 && (
-          <div className="activity-stats">
-            <div className="activity-stat-card">
-              <div className="activity-stat-icon">
+          <div className="activity-highlight-section">
+            <div className="activity-highlight-card">
+              <div className="activity-highlight-icon">
                 <TrendingUp size={20} />
               </div>
-              <div className="activity-stat-content">
-                <p className="activity-stat-value">{activityStats.today}</p>
-                <p className="activity-stat-label">Today</p>
+              <div className="activity-highlight-content">
+                <p className="activity-highlight-value">{activityStats.today}</p>
+                <p className="activity-highlight-label">Sounds Today</p>
+              </div>
+            </div>
+            
+            <div className="activity-highlight-card">
+              <div className="activity-highlight-icon">
+                <ActivityIcon size={20} />
+              </div>
+              <div className="activity-highlight-content">
+                <p className="activity-highlight-value">{activityStats.total}</p>
+                <p className="activity-highlight-label">Total Detected</p>
               </div>
             </div>
           </div>
         )}
 
-        <div className="activity-tabs">
-          {categories.map((category) => (
-            <button
-              key={category.id}
-              className={`activity-tab ${selectedCategory === category.id ? 'active' : ''}`}
-              onClick={() => setSelectedCategory(category.id)}
-            >
-              {category.color && (
-                <span 
-                  className="activity-tab-icon"
-                  style={{
-                    background: category.color === 'pink' ? 'var(--gradient-pink)' :
-                               category.color === 'orange' ? 'var(--gradient-orange)' :
-                               category.color === 'green' ? 'var(--gradient-green)' :
-                               'var(--gradient-purple)'
-                  }}
-                />
-              )}
-              <span>{category.label}</span>
-            </button>
-          ))}
-        </div>
-      </div>
+        <div className="activity-filter-section">
+          {/* Filter header removed per design: heading and icon hidden */}
 
-      <div className="activity-content">
+          <div className="activity-tabs">
+            {categories.map((category) => (
+              <button
+                key={category.id}
+                className={`activity-tab ${selectedCategory === category.id ? 'active' : ''}`}
+                onClick={() => setSelectedCategory(category.id)}
+              >
+                {category.color && (
+                  <span 
+                    className="activity-tab-icon"
+                    style={{
+                      background: category.color === 'pink' ? 'var(--gradient-pink)' :
+                                 category.color === 'orange' ? 'var(--gradient-orange)' :
+                                 category.color === 'green' ? 'var(--gradient-green)' :
+                                 'var(--gradient-purple)'
+                    }}
+                  />
+                )}
+                <span>{category.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
         {filteredActivities.length === 0 ? (
           <div className="activity-empty">
             <div className="activity-empty-icon">

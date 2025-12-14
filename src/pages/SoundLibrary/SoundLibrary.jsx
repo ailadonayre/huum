@@ -1,17 +1,18 @@
 import {
-    Calendar,
-    Clock,
-    Home as HomeIcon,
-    Library as LibraryIcon,
-    MessageCircle,
-    MoreVertical,
-    Music,
-    Plus,
-    Search,
-    Sparkles,
-    Volume2
+  Calendar,
+  Clock,
+  Home as HomeIcon,
+  Library as LibraryIcon,
+  MessageCircle,
+  MoreVertical,
+  Music,
+  Plus,
+  Search,
+  Sparkles,
+  Volume2
 } from 'lucide-react';
 import { useState } from 'react';
+import logoPurpleText from '../../assets/icons/huum logo-purple-text.png';
 import BottomNav from '../../components/BottomNav/BottomNav';
 import './SoundLibrary.css';
 
@@ -146,10 +147,7 @@ const SoundLibrary = ({ onNavigate, onAddSound }) => {
     <div className="sound-library-screen">
       <div className="sound-library-header">
         <div className="sound-library-header-top">
-          <div>
-            <h1 className="sound-library-title">Sound Library</h1>
-            <p className="sound-library-subtitle">{totalSounds} sounds recorded</p>
-          </div>
+          <img src={logoPurpleText} alt="huum" className="sound-library-logo-new" />
           <button 
             className="sound-library-add-button"
             onClick={onAddSound}

@@ -1,6 +1,5 @@
-import { Ear } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import logoPurple from '../../assets/icons/huum logo-purple.png';
+import logoPurpleText from '../../assets/icons/huum logo-purple-text.png';
 import ActivityCard from '../../components/ActivityCard/ActivityCard';
 import BottomNav from '../../components/BottomNav/BottomNav';
 import { generateWaveformData } from '../../utils/animationHelpers';
@@ -10,7 +9,6 @@ import './Listening.css';
 const Listening = ({ onNavigate, detectedSounds, onToggleListening, isDarkMode, onToggleDarkMode, visualIntensity = 3 }) => {
   const [activeTab, setActiveTab] = useState('home');
   const [waveformData, setWaveformData] = useState(generateWaveformData(7));
-  const [currentSound, setCurrentSound] = useState(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -30,10 +28,10 @@ const Listening = ({ onNavigate, detectedSounds, onToggleListening, isDarkMode, 
   const intensityScale = visualIntensity / 5;
 
   return (
-    <div className="home-screen listening-screen">
+    <div className="home-screen">
       
       <div className="home-header-new">
-        <img src={logoPurple} alt="huum" className="home-logo-new" />
+        <img src={logoPurpleText} alt="huum" className="home-logo-new" />
       </div>
 
       <div className="home-content">
@@ -61,17 +59,6 @@ const Listening = ({ onNavigate, detectedSounds, onToggleListening, isDarkMode, 
               </div>
             </button>
           </div>
-          {recentActivities.length > 0 && (
-            <div className="listening-detection">
-              <div className="listening-detection-icon" style={{ background: recentActivities[0].categoryColor === 'pink' ? 'var(--gradient-pink)' : recentActivities[0].categoryColor === 'orange' ? 'var(--gradient-orange)' : recentActivities[0].categoryColor === 'green' ? 'var(--gradient-green)' : 'var(--gradient-purple)'}}>
-                <Ear />
-              </div>
-              <div className="listening-detection-content">
-                <div className="listening-detection-title">{recentActivities[0].category}</div>
-                <div className="listening-detection-sub">{recentActivities[0].time}</div>
-              </div>
-            </div>
-          )}
         </div>
 
         <h1 className="home-title">Listening...</h1>

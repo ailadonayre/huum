@@ -1,10 +1,3 @@
-.listening-screen {
-  background: linear-gradient(180deg, 
-    var(--color-bg-primary) 0%, 
-    rgba(139, 136, 241, 0.05) 100%
-  );
-}
-
 .listening-badge {
   background: linear-gradient(135deg, rgba(94, 221, 166, 0.2), rgba(94, 221, 166, 0.1));
   color: var(--color-green);
@@ -27,28 +20,13 @@
 }
 
 .listening-circle-bg.active {
-  position: absolute;
-  width: 240px;
-  height: 240px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
   background: rgba(94, 221, 166, 0.12);
   animation: rippleExpandListening 2s ease-out infinite;
 }
 
 .listening-circle-bg.active::before,
 .listening-circle-bg.active::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: inherit;
-  opacity: 0.6;
+  background: rgba(94, 221, 166, 0.12);
   animation: rippleExpandListening 2s ease-out infinite;
 }
 
@@ -62,11 +40,11 @@
 
 @keyframes rippleExpandListening {
   0% {
-    transform: translate(-50%, -50%) scale(0.95);
+    transform: scale(0.7);
     opacity: 0.8;
   }
   100% {
-    transform: translate(-50%, -50%) scale(1.08);
+    transform: scale(1);
     opacity: 0;
   }
 }
