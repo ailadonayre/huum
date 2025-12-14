@@ -276,6 +276,22 @@
   line-height: 1.6;
 }
 
+/* Remove hover animation for the three dots in activity cards */
+.activity-more:hover {
+  color: var(--color-gray);
+  transform: none;
+}
+
+.activity-more-latest:hover {
+  color: rgba(255, 255, 255, 0.8);
+  transform: none;
+}
+
+/* Bring the icon closer to the text in activity cards */
+.activity-card {
+  gap: var(--spacing-sm);
+}
+
 @media (max-width: 375px) {
   .listening-circle-wrapper {
     width: 200px;

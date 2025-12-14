@@ -402,6 +402,28 @@
   background-color: rgba(139, 136, 241, 0.1);
 }
 
+/* Dark mode styles for Learn page */
+[data-theme="dark"] .learn-recent-items {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+}
+
+[data-theme="dark"] .learn-recent-item {
+  background: var(--color-bg-primary);
+}
+
+[data-theme="dark"] .learn-recent-text {
+  color: var(--color-white);
+}
+
+[data-theme="dark"] .learn-recent-time {
+  color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .learn-section-title {
+  color: var(--color-white);
+}
+
 @media (max-width: 480px) {
   .learn-categories-grid {
     grid-template-columns: 1fr;
