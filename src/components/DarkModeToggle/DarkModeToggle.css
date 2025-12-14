@@ -1,0 +1,42 @@
+.dark-mode-toggle-floating {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dark-mode-toggle-floating:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+[data-theme="dark"] .dark-mode-toggle-floating {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .dark-mode-toggle-floating:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+@media (max-width: 768px) {
+  .dark-mode-toggle-floating {
+    top: 15px;
+    right: 15px;
+    width: 44px;
+    height: 44px;
+  }
+}
