@@ -287,11 +287,6 @@
   transform: none;
 }
 
-/* Bring the icon closer to the text in activity cards */
-.activity-card {
-  gap: var(--spacing-sm);
-}
-
 @media (max-width: 375px) {
   .listening-circle-wrapper {
     width: 200px;

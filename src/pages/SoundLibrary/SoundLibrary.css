@@ -285,15 +285,7 @@
 }
 
 .sound-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 80px;
-  height: 80px;
-  background: radial-gradient(circle, rgba(139, 136, 241, 0.08), transparent);
-  transform: translate(50%, -50%);
-  transition: all var(--transition-base);
+  content: none;
 }
 
 .sound-card:hover {
@@ -343,9 +335,15 @@
   border-radius: var(--radius-sm);
 }
 
+/* Remove hover background on three-dot menu */
 .sound-card-menu:hover {
-  color: var(--color-primary);
-  background: var(--color-bg-secondary);
+  background: transparent;
+  color: var(--color-gray);
+}
+
+[data-theme="dark"] .sound-card-menu:hover {
+  background: transparent;
+  color: var(--color-gray);
 }
 
 .sound-card-name {
