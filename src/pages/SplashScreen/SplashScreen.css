@@ -1,11 +1,17 @@
+/* src/pages/SplashScreen/SplashScreen.css - Update to fix stretched circles */
 .splash-screen {
   min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
   background: var(--gradient-purple-bg);
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   overflow: hidden;
 }
 
@@ -17,7 +23,6 @@
   z-index: 2;
 }
 
-/* Logo Container */
 .splash-logo-container {
   opacity: 0;
   transform: scale(0.8);
@@ -39,7 +44,6 @@
   animation: gentleFloat 3s ease-in-out infinite;
 }
 
-/* Gentle float animation for logo */
 @keyframes gentleFloat {
   0%, 100% {
     transform: translateY(0px);
@@ -49,12 +53,14 @@
   }
 }
 
-/* Ripple circles animation */
 .splash-ripple {
   position: absolute;
+  top: 50%;
+  left: 50%;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.1);
   pointer-events: none;
+  transform: translate(-50%, -50%);
 }
 
 .splash-ripple-1 {
@@ -77,16 +83,15 @@
 
 @keyframes rippleExpand {
   0% {
-    transform: scale(0.5);
+    transform: translate(-50%, -50%) scale(0.5);
     opacity: 0.6;
   }
   100% {
-    transform: scale(1.2);
+    transform: translate(-50%, -50%) scale(1.2);
     opacity: 0;
   }
 }
 
-/* Mobile responsiveness */
 @media (min-width: 768px) {
   .splash-logo {
     width: 150px;
@@ -109,7 +114,6 @@
   }
 }
 
-/* Accessibility - respect reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
   .splash-logo {
     animation: none;
@@ -122,5 +126,11 @@
   
   .splash-logo-container {
     transition: opacity var(--transition-base);
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  .splash-screen {
+    min-height: -webkit-fill-available;
   }
 }

@@ -1,6 +1,6 @@
 import { Ear, Moon, Sun } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import logoWhite from '../../assets/icons/huum logo-white.png';
+import logoPurple from '../../assets/icons/huum logo-purple.png';
 import ActivityCard from '../../components/ActivityCard/ActivityCard';
 import BottomNav from '../../components/BottomNav/BottomNav';
 import './Home.css';
@@ -27,10 +27,10 @@ const Home = ({ onNavigate, onToggleListening, isDarkMode, onToggleDarkMode, det
 
   return (
     <div className="home-screen">
-      <div className="home-header">
-        <img src={logoWhite} alt="huum" className="home-logo" />
+      <div className="home-header-new">
+        <img src={logoPurple} alt="huum" className="home-logo-new" />
         <button 
-          className="home-moon-button" 
+          className="home-theme-button" 
           onClick={onToggleDarkMode}
           aria-label={isDarkMode ? "Light mode" : "Dark mode"}
         >

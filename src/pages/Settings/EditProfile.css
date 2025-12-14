@@ -1,11 +1,17 @@
+/* src/pages/Settings/EditProfile.css */
 .edit-profile-screen {
   min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
   background: var(--gradient-purple-bg);
   display: flex;
   flex-direction: column;
   color: var(--color-white);
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   overflow-y: auto;
 }
 
@@ -71,28 +77,8 @@
   justify-content: center;
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
-  margin-bottom: var(--spacing-md);
   box-shadow: var(--shadow-lg);
-}
-
-.edit-profile-avatar-button {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-  padding: var(--spacing-sm) var(--spacing-lg);
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: var(--radius-full);
-  color: var(--color-white);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  cursor: pointer;
-  transition: all var(--transition-base);
-}
-
-.edit-profile-avatar-button:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
+  animation: scaleIn var(--transition-base) ease-out;
 }
 
 .edit-profile-form {
@@ -102,23 +88,29 @@
   box-shadow: var(--shadow-lg);
 }
 
-.edit-profile-textarea {
-  width: 100%;
-  padding: var(--spacing-md);
-  font-size: var(--font-size-base);
-  font-family: var(--font-family);
-  color: var(--color-dark-purple);
-  background-color: var(--color-white);
-  border: 2px solid var(--color-light-gray);
-  border-radius: var(--radius-md);
-  transition: all var(--transition-base);
-  outline: none;
-  resize: vertical;
+.edit-profile-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: var(--spacing-xl) 0;
+  color: var(--color-gray);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
 }
 
-.edit-profile-textarea:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 4px rgba(139, 136, 241, 0.1);
+.edit-profile-divider::before,
+.edit-profile-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--color-light-gray);
+}
+
+.edit-profile-divider::before {
+  margin-right: var(--spacing-md);
+}
+
+.edit-profile-divider::after {
+  margin-left: var(--spacing-md);
 }
 
 .edit-profile-footer {
@@ -135,4 +127,10 @@
   margin: 0 auto;
   display: flex;
   gap: var(--spacing-md);
+}
+
+@supports (-webkit-touch-callout: none) {
+  .edit-profile-screen {
+    min-height: -webkit-fill-available;
+  }
 }

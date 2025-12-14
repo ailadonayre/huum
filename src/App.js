@@ -1,3 +1,4 @@
+// src/App.js
 import { useEffect, useState } from 'react';
 import './App.css';
 import Chatbot from './components/Chatbot/Chatbot';
@@ -15,10 +16,7 @@ import Onboarding1 from './pages/Onboarding/Onboarding1';
 import Onboarding2 from './pages/Onboarding/Onboarding2';
 import Onboarding3 from './pages/Onboarding/Onboarding3';
 import EditProfile from './pages/Settings/EditProfile';
-import HapticFeedback from './pages/Settings/HapticFeedback';
-import Notifications from './pages/Settings/Notifications';
 import Settings from './pages/Settings/Settings';
-import VisualFeedback from './pages/Settings/VisualFeedback';
 import SetupMicrophone from './pages/Setup/SetupMicrophone';
 import SetupNotifications from './pages/Setup/SetupNotifications';
 import AddSound from './pages/SoundLibrary/AddSound';
@@ -35,8 +33,9 @@ function App() {
   const [detectedSounds, setDetectedSounds] = useState([]);
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [visualIntensity, setVisualIntensity] = useState(5);
-  const [hapticIntensity, setHapticIntensity] = useState(5);
+  const [visualIntensity, setVisualIntensity] = useState(3);
+  const [hapticIntensity, setHapticIntensity] = useState(3);
+  const [highContrast, setHighContrast] = useState(false);
   const [notificationSettings, setNotificationSettings] = useState({
     safety: true,
     people: true,
@@ -119,13 +118,7 @@ function App() {
   };
 
   const handleSettingClick = (setting) => {
-    if (setting === 'visual-feedback') {
-      setCurrentScreen('visual-feedback');
-    } else if (setting === 'haptic-feedback') {
-      setCurrentScreen('haptic-feedback');
-    } else if (setting === 'notifications') {
-      setCurrentScreen('notifications');
-    } else if (setting === 'edit-profile') {
+    if (setting === 'edit-profile') {
       setCurrentScreen('edit-profile');
     }
   };
@@ -314,33 +307,14 @@ function App() {
             isDarkMode={isDarkMode}
             onToggleDarkMode={toggleDarkMode}
             onLogout={handleLogout}
-          />
-        );
-      
-      case 'visual-feedback':
-        return (
-          <VisualFeedback 
-            onBack={() => handleNext('settings')}
-            intensity={visualIntensity}
-            onIntensityChange={setVisualIntensity}
-          />
-        );
-
-      case 'haptic-feedback':
-        return (
-          <HapticFeedback 
-            onBack={() => handleNext('settings')}
-            intensity={hapticIntensity}
-            onIntensityChange={setHapticIntensity}
-          />
-        );
-
-      case 'notifications':
-        return (
-          <Notifications 
-            onBack={() => handleNext('settings')}
-            settings={notificationSettings}
-            onSettingsChange={setNotificationSettings}
+            visualIntensity={visualIntensity}
+            onVisualIntensityChange={setVisualIntensity}
+            highContrast={highContrast}
+            onHighContrastChange={setHighContrast}
+            hapticIntensity={hapticIntensity}
+            onHapticIntensityChange={setHapticIntensity}
+            notificationSettings={notificationSettings}
+            onNotificationSettingsChange={setNotificationSettings}
           />
         );
 

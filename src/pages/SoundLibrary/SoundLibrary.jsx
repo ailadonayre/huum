@@ -1,14 +1,15 @@
 import {
-    Calendar,
-    Clock,
-    Home as HomeIcon,
-    Library as LibraryIcon,
-    MessageCircle,
-    MoreVertical,
-    Music,
-    Plus,
-    Search,
-    Volume2
+  Calendar,
+  Clock,
+  Home as HomeIcon,
+  Library as LibraryIcon,
+  MessageCircle,
+  MoreVertical,
+  Music,
+  Plus,
+  Search,
+  Sparkles,
+  Volume2
 } from 'lucide-react';
 import { useState } from 'react';
 import BottomNav from '../../components/BottomNav/BottomNav';
@@ -22,9 +23,9 @@ const SoundLibrary = ({ onNavigate, onAddSound }) => {
   const categories = [
     { id: 'all', label: 'All Sounds', color: null },
     { id: 'safety', label: 'Safety', color: 'orange' },
-    { id: 'people', label: 'People and Communication', color: 'pink' },
+    { id: 'people', label: 'People', color: 'pink' },
     { id: 'ambient', label: 'Ambient', color: 'green' },
-    { id: 'notification', label: 'Notification/Alert', color: 'purple' },
+    { id: 'notification', label: 'Alerts', color: 'purple' },
   ];
 
   const sounds = [
@@ -36,6 +37,7 @@ const SoundLibrary = ({ onNavigate, onAddSound }) => {
       icon: Music,
       duration: '0:45',
       date: 'Dec 8, 2024',
+      quality: 95,
     },
     {
       id: 2,
@@ -45,6 +47,7 @@ const SoundLibrary = ({ onNavigate, onAddSound }) => {
       icon: Music,
       duration: '1:20',
       date: 'Dec 7, 2024',
+      quality: 88,
     },
     {
       id: 3,
@@ -54,6 +57,7 @@ const SoundLibrary = ({ onNavigate, onAddSound }) => {
       icon: MessageCircle,
       duration: '2:15',
       date: 'Dec 7, 2024',
+      quality: 92,
     },
     {
       id: 4,
@@ -63,6 +67,7 @@ const SoundLibrary = ({ onNavigate, onAddSound }) => {
       icon: HomeIcon,
       duration: '0:05',
       date: 'Dec 6, 2024',
+      quality: 98,
     },
     {
       id: 5,
@@ -72,6 +77,7 @@ const SoundLibrary = ({ onNavigate, onAddSound }) => {
       icon: MessageCircle,
       duration: '0:30',
       date: 'Dec 6, 2024',
+      quality: 94,
     },
     {
       id: 6,
@@ -81,6 +87,7 @@ const SoundLibrary = ({ onNavigate, onAddSound }) => {
       icon: Music,
       duration: '0:03',
       date: 'Dec 5, 2024',
+      quality: 90,
     },
     {
       id: 7,
@@ -90,6 +97,7 @@ const SoundLibrary = ({ onNavigate, onAddSound }) => {
       icon: Volume2,
       duration: '0:10',
       date: 'Dec 5, 2024',
+      quality: 100,
     },
     {
       id: 8,
@@ -99,6 +107,7 @@ const SoundLibrary = ({ onNavigate, onAddSound }) => {
       icon: Volume2,
       duration: '0:08',
       date: 'Dec 4, 2024',
+      quality: 96,
     },
   ];
 
@@ -130,21 +139,47 @@ const SoundLibrary = ({ onNavigate, onAddSound }) => {
     }
   };
 
+  const totalSounds = sounds.length;
+  const avgQuality = Math.round(sounds.reduce((sum, s) => sum + s.quality, 0) / sounds.length);
+
   return (
     <div className="sound-library-screen">
       <div className="sound-library-header">
         <div className="sound-library-header-top">
-          <h1 className="sound-library-title">Sound Library</h1>
+          <div>
+            <h1 className="sound-library-title">Sound Library</h1>
+            <p className="sound-library-subtitle">{totalSounds} sounds recorded</p>
+          </div>
           <button 
             className="sound-library-add-button"
             onClick={onAddSound}
           >
             <Plus />
-            <span>Add sound</span>
           </button>
         </div>
 
-        {/* Search Bar */}
+        <div className="sound-library-stats">
+          <div className="sound-library-stat-card">
+            <div className="sound-library-stat-icon">
+              <LibraryIcon size={18} />
+            </div>
+            <div className="sound-library-stat-content">
+              <p className="sound-library-stat-value">{totalSounds}</p>
+              <p className="sound-library-stat-label">Total</p>
+            </div>
+          </div>
+          
+          <div className="sound-library-stat-card">
+            <div className="sound-library-stat-icon">
+              <Sparkles size={18} />
+            </div>
+            <div className="sound-library-stat-content">
+              <p className="sound-library-stat-value">{avgQuality}%</p>
+              <p className="sound-library-stat-label">Quality</p>
+            </div>
+          </div>
+        </div>
+
         <div className="sound-library-search">
           <Search className="sound-library-search-icon" size={20} />
           <input
@@ -156,7 +191,6 @@ const SoundLibrary = ({ onNavigate, onAddSound }) => {
           />
         </div>
 
-        {/* Category Tabs */}
         <div className="sound-library-tabs">
           {categories.map((category) => (
             <button
@@ -189,9 +223,8 @@ const SoundLibrary = ({ onNavigate, onAddSound }) => {
                 : 'Start adding sounds to build your library'}
             </p>
             <button 
-              className="sound-library-add-button"
+              className="sound-library-add-button-large"
               onClick={onAddSound}
-              style={{ marginTop: 'var(--spacing-lg)' }}
             >
               <Plus />
               <span>Add your first sound</span>
@@ -224,6 +257,19 @@ const SoundLibrary = ({ onNavigate, onAddSound }) => {
 
                   <h3 className="sound-card-name">{sound.name}</h3>
                   <p className="sound-card-category">{sound.category}</p>
+
+                  <div className="sound-card-quality">
+                    <div className="sound-quality-bar">
+                      <div 
+                        className="sound-quality-fill"
+                        style={{ 
+                          width: `${sound.quality}%`,
+                          background: getGradient(sound.categoryColor)
+                        }}
+                      />
+                    </div>
+                    <span className="sound-quality-text">{sound.quality}% quality</span>
+                  </div>
 
                   <div className="sound-card-meta">
                     <div className="sound-card-meta-item">

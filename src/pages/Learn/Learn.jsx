@@ -10,6 +10,7 @@ import {
   Volume2
 } from 'lucide-react';
 import { useState } from 'react';
+import logoPurpleText from '../../assets/icons/huum logo-purple-text.png';
 import BottomNav from '../../components/BottomNav/BottomNav';
 import './Learn.css';
 
@@ -80,27 +81,16 @@ const Learn = ({ onNavigate, onCreateCategory, detectedSounds }) => {
 
   return (
     <div className="learn-screen">
-      <div className="learn-header">
-        <div className="learn-header-content">
-          <div className="learn-header-icon">
-            <Brain size={24} />
+      <div className="learn-header-new">
+        <img src={logoPurpleText} alt="huum" className="learn-logo-new" />
+        <div className="learn-stats-pills">
+          <div className="learn-stat-pill">
+            <BookOpen size={14} />
+            <span>{totalSounds}</span>
           </div>
-          <div>
-            <h1 className="learn-title">Learn</h1>
-            <p className="learn-subtitle">
-              Teaching huum to recognize your environment
-            </p>
-          </div>
-        </div>
-        
-        <div className="learn-stats-row">
-          <div className="learn-stat-mini">
-            <BookOpen size={16} />
-            <span>{totalSounds} sounds</span>
-          </div>
-          <div className="learn-stat-mini">
-            <Sparkles size={16} />
-            <span>{categories.length} categories</span>
+          <div className="learn-stat-pill">
+            <Sparkles size={14} />
+            <span>{categories.length}</span>
           </div>
         </div>
       </div>
@@ -153,7 +143,10 @@ const Learn = ({ onNavigate, onCreateCategory, detectedSounds }) => {
 
         <div className="learn-categories-section">
           <div className="learn-section-header">
-            <h2 className="learn-section-title-main">Your Categories</h2>
+            <h2 className="learn-section-title-main">
+              <Brain size={20} />
+              Your Categories
+            </h2>
             <span className="learn-section-count">{categories.length}</span>
           </div>
 

@@ -25,6 +25,12 @@
   margin-bottom: var(--spacing-md);
 }
 
+.sound-library-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-dark-purple);
+}
+
 .activity-title {
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);

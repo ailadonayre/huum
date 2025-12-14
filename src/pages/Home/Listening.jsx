@@ -1,13 +1,13 @@
 import { Moon, Sun } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import logoWhite from '../../assets/icons/huum logo-white.png';
+import logoPurple from '../../assets/icons/huum logo-purple.png';
 import ActivityCard from '../../components/ActivityCard/ActivityCard';
 import BottomNav from '../../components/BottomNav/BottomNav';
 import { generateWaveformData } from '../../utils/animationHelpers';
 import './Home.css';
 import './Listening.css';
 
-const Listening = ({ onNavigate, detectedSounds, onToggleListening, isDarkMode, onToggleDarkMode, visualIntensity = 5 }) => {
+const Listening = ({ onNavigate, detectedSounds, onToggleListening, isDarkMode, onToggleDarkMode, visualIntensity = 3 }) => {
   const [activeTab, setActiveTab] = useState('home');
   const [waveformData, setWaveformData] = useState(generateWaveformData(7));
   const [currentSound, setCurrentSound] = useState(null);
@@ -43,10 +43,10 @@ const Listening = ({ onNavigate, detectedSounds, onToggleListening, isDarkMode, 
 
   return (
     <div className="home-screen listening-screen">
-      <div className="home-header">
-        <img src={logoWhite} alt="huum" className="home-logo" />
+      <div className="home-header-new">
+        <img src={logoPurple} alt="huum" className="home-logo-new" />
         <button 
-          className="home-moon-button" 
+          className="home-theme-button" 
           onClick={onToggleDarkMode}
           aria-label={isDarkMode ? "Light mode" : "Dark mode"}
         >

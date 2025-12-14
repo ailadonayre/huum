@@ -1,4 +1,5 @@
-import { Camera, ChevronLeft } from 'lucide-react';
+// src/pages/Settings/EditProfile.jsx
+import { ChevronLeft } from 'lucide-react';
 import { useState } from 'react';
 import Button from '../../components/Button/Button';
 import InputField from '../../components/InputField/InputField';
@@ -7,7 +8,9 @@ import './EditProfile.css';
 const EditProfile = ({ onBack, userName, onSave }) => {
   const [name, setName] = useState(userName);
   const [email, setEmail] = useState('john.doe@example.com');
-  const [bio, setBio] = useState('');
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSave = () => {
     onSave(name);
@@ -33,17 +36,13 @@ const EditProfile = ({ onBack, userName, onSave }) => {
           <div className="edit-profile-avatar">
             {name.split(' ').map(n => n[0]).join('').toUpperCase()}
           </div>
-          <button className="edit-profile-avatar-button">
-            <Camera size={20} />
-            <span>Change Photo</span>
-          </button>
         </div>
 
         <div className="edit-profile-form">
           <InputField
-            label="Full Name"
+            label="Nickname"
             type="text"
-            placeholder="Enter your name"
+            placeholder="Enter your nickname"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
@@ -56,16 +55,33 @@ const EditProfile = ({ onBack, userName, onSave }) => {
             onChange={(e) => setEmail(e.target.value)}
           />
 
-          <div className="input-field">
-            <label className="input-label">Bio</label>
-            <textarea
-              className="edit-profile-textarea"
-              placeholder="Tell us about yourself"
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
-              rows={4}
-            />
+          <div className="edit-profile-divider">
+            <span>Change Password</span>
           </div>
+
+          <InputField
+            label="Current Password"
+            type="password"
+            placeholder="Enter current password"
+            value={currentPassword}
+            onChange={(e) => setCurrentPassword(e.target.value)}
+          />
+
+          <InputField
+            label="New Password"
+            type="password"
+            placeholder="Enter new password"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+          />
+
+          <InputField
+            label="Confirm New Password"
+            type="password"
+            placeholder="Confirm new password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
         </div>
       </div>
 
