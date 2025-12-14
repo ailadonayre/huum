@@ -19,6 +19,7 @@
 
 .activity-card-latest {
   border: none;
+  box-shadow: var(--shadow-sm);
 }
 
 .activity-card-latest-pink {

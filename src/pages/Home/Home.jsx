@@ -24,6 +24,22 @@ const Home = ({ onNavigate, onToggleListening, isDarkMode, onToggleDarkMode, det
     onNavigate(tab);
   };
 
+  const getTimeAgo = (timestamp) => {
+    if (!timestamp) return '';
+    
+    const now = new Date();
+    const then = new Date(timestamp);
+    const seconds = Math.floor((now - then) / 1000);
+    
+    if (seconds < 10) return 'just now';
+    if (seconds < 60) return `${seconds}s ago`;
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) return `${minutes}m ago`;
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return `${hours}h ago`;
+    return 'yesterday';
+  };
+
   const recentActivities = detectedSounds.slice(0, 3);
 
   return (
@@ -71,7 +87,7 @@ const Home = ({ onNavigate, onToggleListening, isDarkMode, onToggleDarkMode, det
                   activity={{
                     category: activity.category,
                     title: activity.category,
-                    time: activity.time,
+                    time: getTimeAgo(activity.timestamp),
                     color: activity.categoryColor,
                     timestamp: activity.timestamp
                   }}
