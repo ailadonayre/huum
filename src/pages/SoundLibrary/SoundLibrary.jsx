@@ -14,12 +14,17 @@ import {
 import { useState } from 'react';
 import logoPurpleText from '../../assets/icons/huum logo-purple-text.png';
 import BottomNav from '../../components/BottomNav/BottomNav';
+import AddSoundModal from './AddSoundModal';
 import './SoundLibrary.css';
+import SoundRecording from './SoundRecording';
 
-const SoundLibrary = ({ onNavigate, onAddSound }) => {
+const SoundLibrary = ({ onNavigate }) => {
   const [activeTab, setActiveTab] = useState('library');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [isAddSoundModalOpen, setIsAddSoundModalOpen] = useState(false);
+  const [isRecordingModalOpen, setIsRecordingModalOpen] = useState(false);
+  const [currentSoundName, setCurrentSoundName] = useState('');
 
   const categories = [
     { id: 'all', label: 'All Sounds', color: null },
@@ -125,6 +130,17 @@ const SoundLibrary = ({ onNavigate, onAddSound }) => {
     onNavigate(tab);
   };
 
+  const handleSoundContinue = (soundName) => {
+    setCurrentSoundName(soundName);
+    setIsAddSoundModalOpen(false);
+    setIsRecordingModalOpen(true);
+  };
+
+  const handleSoundSaved = () => {
+    setIsRecordingModalOpen(false);
+    setCurrentSoundName('');
+  };
+
   const getGradient = (color) => {
     switch (color) {
       case 'pink':
@@ -186,7 +202,7 @@ const SoundLibrary = ({ onNavigate, onAddSound }) => {
 
         <div 
           className="sound-library-create-card"
-          onClick={onAddSound}
+          onClick={() => setIsAddSoundModalOpen(true)}
         >
           <div className="sound-library-create-icon">
             <Plus />
@@ -301,6 +317,20 @@ const SoundLibrary = ({ onNavigate, onAddSound }) => {
       </div>
 
       <BottomNav activeTab={activeTab} onTabChange={handleTabChange} />
+      
+      <AddSoundModal
+        isOpen={isAddSoundModalOpen}
+        onClose={() => setIsAddSoundModalOpen(false)}
+        onContinue={handleSoundContinue}
+      />
+
+      {isRecordingModalOpen && (
+        <SoundRecording
+          onBack={() => setIsRecordingModalOpen(false)}
+          onSave={handleSoundSaved}
+          soundName={currentSoundName || 'New Sound'}
+        />
+      )}
     </div>
   );
 };

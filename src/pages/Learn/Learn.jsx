@@ -1,21 +1,23 @@
 import {
-    BookOpen,
-    Brain,
-    Lightbulb,
-    MessageCircle,
-    MoreVertical,
-    Music,
-    Plus,
-    Sparkles,
-    Volume2
+  BookOpen,
+  Brain,
+  Lightbulb,
+  MessageCircle,
+  MoreVertical,
+  Music,
+  Plus,
+  Sparkles,
+  Volume2
 } from 'lucide-react';
 import { useState } from 'react';
 import logoPurpleText from '../../assets/icons/huum logo-purple-text.png';
 import BottomNav from '../../components/BottomNav/BottomNav';
+import CreateCategoryModal from './CreateCategoryModal';
 import './Learn.css';
 
-const Learn = ({ onNavigate, onCreateCategory, detectedSounds }) => {
+const Learn = ({ onNavigate, detectedSounds }) => {
   const [activeTab, setActiveTab] = useState('learn');
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
   const categories = [
     {
@@ -64,6 +66,11 @@ const Learn = ({ onNavigate, onCreateCategory, detectedSounds }) => {
     onNavigate(tab);
   };
 
+  const handleCategoryCreated = () => {
+    setIsCreateModalOpen(false);
+    // Add logic to refresh categories if needed
+  };
+
   const getGradient = (color) => {
     switch (color) {
       case 'pink':
@@ -98,7 +105,7 @@ const Learn = ({ onNavigate, onCreateCategory, detectedSounds }) => {
       <div className="learn-content">
         <div 
           className="learn-create-card"
-          onClick={onCreateCategory}
+          onClick={() => setIsCreateModalOpen(true)}
         >
           <div className="learn-create-icon">
             <Plus />
@@ -212,6 +219,12 @@ const Learn = ({ onNavigate, onCreateCategory, detectedSounds }) => {
       </div>
 
       <BottomNav activeTab={activeTab} onTabChange={handleTabChange} />
+      
+      <CreateCategoryModal
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+        onCreate={handleCategoryCreated}
+      />
     </div>
   );
 };
