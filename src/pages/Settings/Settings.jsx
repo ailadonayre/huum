@@ -1,18 +1,19 @@
-// src/pages/Settings/Settings.jsx
+// src/pages/Settings/Settings.jsx - Add DarkModeToggle
 import {
-  Bell,
-  ChevronDown,
-  ChevronRight,
-  ChevronUp,
-  Eye,
-  HelpCircle,
-  Info,
-  LogOut,
-  Shield,
-  Vibrate
+    Bell,
+    ChevronDown,
+    ChevronRight,
+    ChevronUp,
+    Eye,
+    HelpCircle,
+    Info,
+    LogOut,
+    Shield,
+    Vibrate
 } from 'lucide-react';
 import { useState } from 'react';
 import BottomNav from '../../components/BottomNav/BottomNav';
+import DarkModeToggle from '../../components/DarkModeToggle/DarkModeToggle';
 import './Settings.css';
 
 const Settings = ({ 
@@ -46,6 +47,8 @@ const Settings = ({
 
   return (
     <div className="settings-screen-purple">
+      <DarkModeToggle isDarkMode={isDarkMode} onToggle={onToggleDarkMode} />
+      
       <div className="settings-header-purple">
         <h1 className="settings-title-purple">Settings</h1>
       </div>
@@ -155,146 +158,3 @@ const Settings = ({
                       onChange={(e) => onHapticIntensityChange(parseInt(e.target.value))}
                       className="settings-slider"
                     />
-                    <div className="settings-slider-labels">
-                      <span>Gentle</span>
-                      <span>Strong</span>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Notifications */}
-            <div className="settings-expandable-card">
-              <div 
-                className="settings-card-header"
-                onClick={() => toggleSection('notifications')}
-              >
-                <div className="settings-card-icon-wrapper" style={{ background: 'var(--gradient-purple)' }}>
-                  <Bell size={20} />
-                </div>
-                <div className="settings-card-content">
-                  <h4 className="settings-card-title">Notifications</h4>
-                  <p className="settings-card-description">Choose sounds to track</p>
-                </div>
-                {expandedSection === 'notifications' ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-              </div>
-              
-              {expandedSection === 'notifications' && (
-                <div className="settings-card-expanded">
-                  <div className="settings-notification-item">
-                    <div>
-                      <p className="settings-toggle-title">Safety</p>
-                      <p className="settings-toggle-description">Fire alarms, doorbells, alarms</p>
-                    </div>
-                    <div className="settings-toggle">
-                      <input
-                        type="checkbox"
-                        checked={notificationSettings.safety}
-                        onChange={(e) => onNotificationSettingsChange({...notificationSettings, safety: e.target.checked})}
-                        className="settings-toggle-input"
-                        id="notif-safety"
-                      />
-                      <label htmlFor="notif-safety" className="settings-toggle-label">
-                        <span className="settings-toggle-slider"></span>
-                      </label>
-                    </div>
-                  </div>
-                  
-                  <div className="settings-notification-item">
-                    <div>
-                      <p className="settings-toggle-title">People and Communication</p>
-                      <p className="settings-toggle-description">Conversations, phone calls</p>
-                    </div>
-                    <div className="settings-toggle">
-                      <input
-                        type="checkbox"
-                        checked={notificationSettings.people}
-                        onChange={(e) => onNotificationSettingsChange({...notificationSettings, people: e.target.checked})}
-                        className="settings-toggle-input"
-                        id="notif-people"
-                      />
-                      <label htmlFor="notif-people" className="settings-toggle-label">
-                        <span className="settings-toggle-slider"></span>
-                      </label>
-                    </div>
-                  </div>
-                  
-                  <div className="settings-notification-item">
-                    <div>
-                      <p className="settings-toggle-title">Ambient</p>
-                      <p className="settings-toggle-description">Music, traffic, nature sounds</p>
-                    </div>
-                    <div className="settings-toggle">
-                      <input
-                        type="checkbox"
-                        checked={notificationSettings.ambient}
-                        onChange={(e) => onNotificationSettingsChange({...notificationSettings, ambient: e.target.checked})}
-                        className="settings-toggle-input"
-                        id="notif-ambient"
-                      />
-                      <label htmlFor="notif-ambient" className="settings-toggle-label">
-                        <span className="settings-toggle-slider"></span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
-        <div className="settings-section-purple">
-          <h3 className="settings-section-title-purple">More</h3>
-          <div className="settings-items-purple">
-            <div className="settings-simple-card">
-              <div className="settings-card-icon-wrapper" style={{ background: 'var(--gradient-green)' }}>
-                <Info size={20} />
-              </div>
-              <div className="settings-card-content">
-                <h4 className="settings-card-title">About huum</h4>
-                <p className="settings-card-description">Learn more about the app</p>
-              </div>
-              <ChevronRight size={20} />
-            </div>
-            
-            <div className="settings-simple-card">
-              <div className="settings-card-icon-wrapper" style={{ background: 'var(--gradient-orange)' }}>
-                <Shield size={20} />
-              </div>
-              <div className="settings-card-content">
-                <h4 className="settings-card-title">Privacy and Permissions</h4>
-                <p className="settings-card-description">Control your privacy settings</p>
-              </div>
-              <ChevronRight size={20} />
-            </div>
-            
-            <div className="settings-simple-card">
-              <div className="settings-card-icon-wrapper" style={{ background: 'var(--gradient-purple)' }}>
-                <HelpCircle size={20} />
-              </div>
-              <div className="settings-card-content">
-                <h4 className="settings-card-title">Help and Support</h4>
-                <p className="settings-card-description">Get help or contact us</p>
-              </div>
-              <ChevronRight size={20} />
-            </div>
-          </div>
-        </div>
-
-        <button className="settings-signout-purple" onClick={onLogout}>
-          <LogOut />
-          <span>Sign Out</span>
-        </button>
-
-        <div className="settings-version-purple">
-          Version 1.0.0
-        </div>
-      </div>
-
-      <BottomNav activeTab={activeTab} onTabChange={handleTabChange} />
-    </div>
-  );
-};
-
-export default Settings;

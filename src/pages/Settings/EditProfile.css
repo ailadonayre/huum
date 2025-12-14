@@ -1,4 +1,4 @@
-/* src/pages/Settings/EditProfile.css */
+/* src/pages/Settings/EditProfile.css - Fix dark mode styling */
 .edit-profile-screen {
   min-height: 100vh;
   min-height: 100dvh;
@@ -44,6 +44,7 @@
   text-align: center;
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
+  color: var(--color-white);
 }
 
 .edit-profile-spacer {
@@ -88,6 +89,23 @@
   box-shadow: var(--shadow-lg);
 }
 
+[data-theme="dark"] .edit-profile-form {
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="dark"] .edit-profile-form .input-label {
+  color: var(--color-dark-purple);
+}
+
+[data-theme="dark"] .edit-profile-form .input {
+  color: var(--color-dark-purple);
+  background-color: var(--color-white);
+}
+
+[data-theme="dark"] .edit-profile-form .input::placeholder {
+  color: var(--color-gray);
+}
+
 .edit-profile-divider {
   display: flex;
   align-items: center;
@@ -120,6 +138,10 @@
   position: sticky;
   bottom: 0;
   animation: fadeInUp var(--transition-base) ease-out;
+}
+
+[data-theme="dark"] .edit-profile-footer {
+  background-color: rgba(255, 255, 255, 0.95);
 }
 
 .edit-profile-actions {

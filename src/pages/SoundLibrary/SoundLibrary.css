@@ -23,13 +23,18 @@
 
 .sound-library-header-top {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
   margin-bottom: var(--spacing-lg);
+  position: relative;
+}
+
+.sound-library-header-top > div {
+  text-align: center;
 }
 
 .sound-library-title {
-  font-size: var(--font-size-2xl);
+  font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
   margin-bottom: 4px;
@@ -41,6 +46,10 @@
 }
 
 .sound-library-add-button {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
   width: 48px;
   height: 48px;
   border-radius: 50%;
@@ -58,7 +67,7 @@
 
 .sound-library-add-button:hover {
   box-shadow: var(--shadow-lg);
-  transform: translateY(-2px) scale(1.05);
+  transform: translateY(-50%) scale(1.05);
 }
 
 .sound-library-add-button svg {
@@ -73,6 +82,7 @@
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  justify-content: center;
 }
 
 .sound-library-stats::-webkit-scrollbar {
@@ -158,6 +168,8 @@
   padding-bottom: var(--spacing-xs);
   scrollbar-width: none;
   -ms-overflow-style: none;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .sound-library-tabs::-webkit-scrollbar {
@@ -190,8 +202,9 @@
   background: var(--gradient-purple);
   border-color: var(--color-primary);
   color: var(--color-white);
-  transform: translateY(-2px);
   box-shadow: var(--shadow-sm);
+  position: relative;
+  z-index: 1;
 }
 
 .sound-library-tab-dot {
@@ -204,6 +217,24 @@
   flex: 1;
   padding: var(--spacing-lg);
   animation: fadeInUp var(--transition-base) ease-out;
+}
+
+.sound-library-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-lg);
+}
+
+@media (min-width: 768px) {
+  .sound-library-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .sound-library-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .sound-library-grid {

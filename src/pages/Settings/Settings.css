@@ -1,4 +1,4 @@
-/* src/pages/Settings/Settings.css */
+/* src/pages/Settings/Settings.css - Fix hover styles and sign out button */
 .settings-screen-purple {
   min-height: 100vh;
   min-height: 100dvh;
@@ -136,6 +136,7 @@
   gap: var(--spacing-md);
   padding: var(--spacing-lg);
   cursor: pointer;
+  transition: all var(--transition-base);
 }
 
 .settings-simple-card:hover {
@@ -349,21 +350,23 @@
   justify-content: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-lg);
-  background-color: rgba(253, 143, 176, 0.2);
-  border: 2px solid rgba(253, 143, 176, 0.4);
+  background-color: var(--color-white);
+  border: none;
   border-radius: var(--radius-xl);
-  color: var(--color-white);
+  color: var(--color-dark-purple);
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
   cursor: pointer;
   transition: all var(--transition-base);
-  margin-top: var(--spacing-xl);
+  margin: var(--spacing-xl) auto 0;
+  max-width: 200px;
+  width: 100%;
 }
 
 .settings-signout-purple:hover {
-  background-color: rgba(253, 143, 176, 0.3);
-  border-color: rgba(253, 143, 176, 0.6);
+  background-color: rgba(255, 255, 255, 0.9);
   transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .settings-signout-purple svg {

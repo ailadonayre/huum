@@ -6,6 +6,12 @@
   display: flex;
   flex-direction: column;
   padding-bottom: 80px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
 }
 
 .activity-header {
@@ -20,19 +26,18 @@
 
 .activity-header-top {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
   margin-bottom: var(--spacing-md);
+  position: relative;
 }
 
-.sound-library-title {
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-dark-purple);
+.activity-header-top > div {
+  text-align: center;
 }
 
 .activity-title {
-  font-size: var(--font-size-2xl);
+  font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
   margin-bottom: 4px;
@@ -44,6 +49,10 @@
 }
 
 .activity-filter-button {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);
@@ -75,6 +84,7 @@
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  justify-content: center;
 }
 
 .activity-stats::-webkit-scrollbar {
@@ -127,6 +137,8 @@
   padding-bottom: var(--spacing-xs);
   scrollbar-width: none;
   -ms-overflow-style: none;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .activity-tabs::-webkit-scrollbar {
@@ -159,8 +171,9 @@
   background: var(--gradient-purple);
   border-color: var(--color-primary);
   color: var(--color-white);
-  transform: translateY(-2px);
   box-shadow: var(--shadow-sm);
+  position: relative;
+  z-index: 1;
 }
 
 .activity-tab-icon {

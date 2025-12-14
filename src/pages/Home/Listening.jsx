@@ -1,8 +1,8 @@
-import { Moon, Sun } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import logoPurple from '../../assets/icons/huum logo-purple.png';
 import ActivityCard from '../../components/ActivityCard/ActivityCard';
 import BottomNav from '../../components/BottomNav/BottomNav';
+import DarkModeToggle from '../../components/DarkModeToggle/DarkModeToggle';
 import { generateWaveformData } from '../../utils/animationHelpers';
 import './Home.css';
 import './Listening.css';
@@ -43,15 +43,10 @@ const Listening = ({ onNavigate, detectedSounds, onToggleListening, isDarkMode, 
 
   return (
     <div className="home-screen listening-screen">
+      <DarkModeToggle isDarkMode={isDarkMode} onToggle={onToggleDarkMode} />
+      
       <div className="home-header-new">
         <img src={logoPurple} alt="huum" className="home-logo-new" />
-        <button 
-          className="home-theme-button" 
-          onClick={onToggleDarkMode}
-          aria-label={isDarkMode ? "Light mode" : "Dark mode"}
-        >
-          {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-        </button>
       </div>
 
       <div className="home-content">
@@ -116,15 +111,17 @@ const Listening = ({ onNavigate, detectedSounds, onToggleListening, isDarkMode, 
               </span>
             </div>
             <div className="activity-list">
-              {recentActivities.map((activity) => (
+              {recentActivities.map((activity, index) => (
                 <ActivityCard 
                   key={activity.id} 
                   activity={{
                     category: activity.category,
                     title: activity.category,
                     time: activity.time,
-                    color: activity.categoryColor
-                  }} 
+                    color: activity.categoryColor,
+                    timestamp: activity.timestamp
+                  }}
+                  isLatest={index === 0}
                 />
               ))}
             </div>
