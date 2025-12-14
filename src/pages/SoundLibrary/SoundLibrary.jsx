@@ -148,33 +148,54 @@ const SoundLibrary = ({ onNavigate, onAddSound }) => {
       <div className="sound-library-header">
         <div className="sound-library-header-top">
           <img src={logoPurpleText} alt="huum" className="sound-library-logo-new" />
-          <button 
-            className="sound-library-add-button"
-            onClick={onAddSound}
-          >
-            <Plus />
-          </button>
-        </div>
-
-        <div className="sound-library-stats">
-          <div className="sound-library-stat-card">
-            <div className="sound-library-stat-icon">
-              <LibraryIcon size={18} />
+          <div className="sound-library-stats-pills">
+            <div className="sound-library-stat-pill">
+              <LibraryIcon size={14} />
+              <span>{totalSounds}</span>
             </div>
-            <div className="sound-library-stat-content">
-              <p className="sound-library-stat-value">{totalSounds}</p>
-              <p className="sound-library-stat-label">Total</p>
+            <div className="sound-library-stat-pill">
+              <Sparkles size={14} />
+              <span>{avgQuality}%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="sound-library-content">
+        <div className="sound-library-highlight-section">
+          <div className="sound-library-highlight-card">
+            <div className="sound-library-highlight-icon">
+              <LibraryIcon size={20} />
+            </div>
+            <div className="sound-library-highlight-content">
+              <p className="sound-library-highlight-value">{totalSounds}</p>
+              <p className="sound-library-highlight-label">Total Sounds</p>
             </div>
           </div>
           
-          <div className="sound-library-stat-card">
-            <div className="sound-library-stat-icon">
-              <Sparkles size={18} />
+          <div className="sound-library-highlight-card">
+            <div className="sound-library-highlight-icon">
+              <Sparkles size={20} />
             </div>
-            <div className="sound-library-stat-content">
-              <p className="sound-library-stat-value">{avgQuality}%</p>
-              <p className="sound-library-stat-label">Quality</p>
+            <div className="sound-library-highlight-content">
+              <p className="sound-library-highlight-value">{avgQuality}%</p>
+              <p className="sound-library-highlight-label">Avg Quality</p>
             </div>
+          </div>
+        </div>
+
+        <div 
+          className="sound-library-create-card"
+          onClick={onAddSound}
+        >
+          <div className="sound-library-create-icon">
+            <Plus />
+          </div>
+          <div className="sound-library-create-content">
+            <h2 className="sound-library-create-title">Add a new sound</h2>
+            <p className="sound-library-create-description">
+              Record and categorize sounds for huum to recognize
+            </p>
           </div>
         </div>
 
@@ -189,26 +210,26 @@ const SoundLibrary = ({ onNavigate, onAddSound }) => {
           />
         </div>
 
-        <div className="sound-library-tabs">
-          {categories.map((category) => (
-            <button
-              key={category.id}
-              className={`sound-library-tab ${selectedCategory === category.id ? 'active' : ''}`}
-              onClick={() => setSelectedCategory(category.id)}
-            >
-              {category.color && (
-                <span 
-                  className="sound-library-tab-dot"
-                  style={{ background: getGradient(category.color) }}
-                />
-              )}
-              <span>{category.label}</span>
-            </button>
-          ))}
+        <div className="sound-library-filter-section">
+          <div className="sound-library-tabs">
+            {categories.map((category) => (
+              <button
+                key={category.id}
+                className={`sound-library-tab ${selectedCategory === category.id ? 'active' : ''}`}
+                onClick={() => setSelectedCategory(category.id)}
+              >
+                {category.color && (
+                  <span 
+                    className="sound-library-tab-dot"
+                    style={{ background: getGradient(category.color) }}
+                  />
+                )}
+                <span>{category.label}</span>
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div className="sound-library-content">
         {filteredSounds.length === 0 ? (
           <div className="sound-library-empty">
             <div className="sound-library-empty-icon">
@@ -220,13 +241,6 @@ const SoundLibrary = ({ onNavigate, onAddSound }) => {
                 ? `No sounds match "${searchQuery}"`
                 : 'Start adding sounds to build your library'}
             </p>
-            <button 
-              className="sound-library-add-button-large"
-              onClick={onAddSound}
-            >
-              <Plus />
-              <span>Add your first sound</span>
-            </button>
           </div>
         ) : (
           <div className="sound-library-grid">

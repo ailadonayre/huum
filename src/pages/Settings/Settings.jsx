@@ -259,37 +259,52 @@ const Settings = ({
         <div className="settings-section-purple">
           <h3 className="settings-section-title-purple">More</h3>
           <div className="settings-items-purple">
-            <div className="settings-simple-card">
-              <div className="settings-card-icon-wrapper" style={{ background: 'var(--gradient-green)' }}>
-                <Info size={20} />
+            <div className="settings-expandable-card">
+              <div 
+                className="settings-card-header"
+                onClick={() => {/* handle navigation */}}
+              >
+                <div className="settings-card-icon-wrapper" style={{ background: 'var(--gradient-green)' }}>
+                  <Info size={20} />
+                </div>
+                <div className="settings-card-content">
+                  <h4 className="settings-card-title">About huum</h4>
+                  <p className="settings-card-description">Learn more about the app</p>
+                </div>
+                <ChevronRight size={20} color="var(--color-gray)" />
               </div>
-              <div className="settings-card-content">
-                <h4 className="settings-card-title">About huum</h4>
-                <p className="settings-card-description">Learn more about the app</p>
-              </div>
-              <ChevronRight size={20} color="var(--color-gray)" />
             </div>
 
-            <div className="settings-simple-card">
-              <div className="settings-card-icon-wrapper" style={{ background: 'var(--gradient-orange)' }}>
-                <Shield size={20} />
+            <div className="settings-expandable-card">
+              <div 
+                className="settings-card-header"
+                onClick={() => {/* handle navigation */}}
+              >
+                <div className="settings-card-icon-wrapper" style={{ background: 'var(--gradient-orange)' }}>
+                  <Shield size={20} />
+                </div>
+                <div className="settings-card-content">
+                  <h4 className="settings-card-title">Privacy and Permissions</h4>
+                  <p className="settings-card-description">Control your privacy settings</p>
+                </div>
+                <ChevronRight size={20} color="var(--color-gray)" />
               </div>
-              <div className="settings-card-content">
-                <h4 className="settings-card-title">Privacy and Permissions</h4>
-                <p className="settings-card-description">Control your privacy settings</p>
-              </div>
-              <ChevronRight size={20} color="var(--color-gray)" />
             </div>
 
-            <div className="settings-simple-card">
-              <div className="settings-card-icon-wrapper" style={{ background: 'var(--gradient-purple)' }}>
-                <HelpCircle size={20} />
+            <div className="settings-expandable-card">
+              <div 
+                className="settings-card-header"
+                onClick={() => {/* handle navigation */}}
+              >
+                <div className="settings-card-icon-wrapper" style={{ background: 'var(--gradient-purple)' }}>
+                  <HelpCircle size={20} />
+                </div>
+                <div className="settings-card-content">
+                  <h4 className="settings-card-title">Help and Support</h4>
+                  <p className="settings-card-description">Get help or contact us</p>
+                </div>
+                <ChevronRight size={20} color="var(--color-gray)" />
               </div>
-              <div className="settings-card-content">
-                <h4 className="settings-card-title">Help and Support</h4>
-                <p className="settings-card-description">Get help or contact us</p>
-              </div>
-              <ChevronRight size={20} color="var(--color-gray)" />
             </div>
           </div>
         </div>

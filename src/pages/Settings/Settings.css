@@ -108,8 +108,7 @@
   gap: var(--spacing-md);
 }
 
-.settings-expandable-card,
-.settings-simple-card {
+.settings-expandable-card {
   background-color: var(--color-white);
   border-radius: var(--radius-xl);
   overflow: hidden;
@@ -117,8 +116,7 @@
   animation: fadeInUp var(--transition-base) ease-out;
 }
 
-[data-theme="dark"] .settings-expandable-card,
-[data-theme="dark"] .settings-simple-card {
+[data-theme="dark"] .settings-expandable-card {
   background-color: var(--color-bg-secondary);
 }
 
@@ -190,7 +188,7 @@
 }
 
 .settings-card-expanded {
-  padding: 0 var(--spacing-lg) var(--spacing-lg);
+  padding: var(--spacing-lg);
   animation: slideDown var(--transition-base) ease-out;
   background-color: var(--color-bg-secondary);
 }
@@ -217,8 +215,20 @@
   margin-bottom: var(--spacing-md);
 }
 
+/* Add top margin to first child */
+.settings-slider-section:first-child {
+  margin-top: 0;
+}
+
 [data-theme="dark"] .settings-slider-section {
   background: var(--color-bg-secondary);
+}
+
+/* Remove bottom margin from last child */
+.settings-slider-section:last-child,
+.settings-toggle-row:last-child,
+.settings-notification-item:last-child {
+  margin-bottom: 0;
 }
 
 .settings-slider-header {
@@ -298,9 +308,15 @@
   justify-content: space-between;
   align-items: center;
   gap: var(--spacing-md);
-  padding: var(--spacing-md);
+  padding: var(--spacing-lg);
   background: var(--color-white);
   border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-md);
+}
+
+/* Add top margin when it's first child */
+.settings-toggle-row:first-child {
+  margin-top: 0;
 }
 
 [data-theme="dark"] .settings-toggle-row {
@@ -371,10 +387,15 @@
   justify-content: space-between;
   align-items: center;
   gap: var(--spacing-md);
-  padding: var(--spacing-md);
+  padding: var(--spacing-lg);
   background: var(--color-white);
   border-radius: var(--radius-md);
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+/* Add top margin when it's first child */
+.settings-notification-item:first-child {
+  margin-top: 0;
 }
 
 [data-theme="dark"] .settings-notification-item {
