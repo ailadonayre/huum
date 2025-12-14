@@ -425,3 +425,27 @@ body {
     padding-bottom: max(var(--spacing-sm), env(safe-area-inset-bottom));
   }
 }
+
+/* Smooth theme transition */
+html {
+  transition: background-color 400ms ease, color 400ms ease;
+}
+
+body {
+  transition: background-color 400ms ease, color 400ms ease;
+}
+
+* {
+  transition-property: background-color, color, border-color;
+  transition-duration: 400ms;
+  transition-timing-function: ease;
+}
+
+/* Preserve other transitions */
+button, .btn, a, input, textarea {
+  transition: background-color 400ms ease, 
+              color 400ms ease, 
+              border-color 400ms ease,
+              transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}

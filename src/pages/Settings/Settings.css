@@ -117,6 +117,11 @@
   animation: fadeInUp var(--transition-base) ease-out;
 }
 
+[data-theme="dark"] .settings-expandable-card,
+[data-theme="dark"] .settings-simple-card {
+  background-color: var(--color-bg-secondary);
+}
+
 .settings-card-header {
   display: flex;
   align-items: center;
@@ -128,6 +133,10 @@
 
 .settings-card-header:hover {
   background-color: rgba(139, 136, 241, 0.05);
+}
+
+[data-theme="dark"] .settings-card-header:hover {
+  background-color: rgba(139, 136, 241, 0.1);
 }
 
 .settings-simple-card {
@@ -143,7 +152,10 @@
   background-color: rgba(139, 136, 241, 0.08);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
-  border-radius: var(--radius-xl);
+}
+
+[data-theme="dark"] .settings-simple-card:hover {
+  background-color: rgba(139, 136, 241, 0.15);
 }
 
 .settings-simple-card:active {
@@ -183,6 +195,10 @@
   background-color: var(--color-bg-secondary);
 }
 
+[data-theme="dark"] .settings-card-expanded {
+  background-color: var(--color-bg-primary);
+}
+
 @keyframes slideDown {
   from {
     opacity: 0;
@@ -199,6 +215,10 @@
   background: var(--color-white);
   border-radius: var(--radius-md);
   margin-bottom: var(--spacing-md);
+}
+
+[data-theme="dark"] .settings-slider-section {
+  background: var(--color-bg-secondary);
 }
 
 .settings-slider-header {
@@ -229,6 +249,10 @@
   -webkit-appearance: none;
   appearance: none;
   margin-bottom: var(--spacing-sm);
+}
+
+[data-theme="dark"] .settings-slider {
+  background: var(--color-border);
 }
 
 .settings-slider::-webkit-slider-thumb {
@@ -279,6 +303,10 @@
   border-radius: var(--radius-md);
 }
 
+[data-theme="dark"] .settings-toggle-row {
+  background: var(--color-bg-secondary);
+}
+
 .settings-toggle-title {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
@@ -314,6 +342,10 @@
   transition: background-color var(--transition-base);
 }
 
+[data-theme="dark"] .settings-toggle-label {
+  background-color: var(--color-border);
+}
+
 .settings-toggle-slider {
   position: absolute;
   top: 2px;
@@ -345,6 +377,10 @@
   margin-bottom: var(--spacing-sm);
 }
 
+[data-theme="dark"] .settings-notification-item {
+  background: var(--color-bg-secondary);
+}
+
 .settings-notification-item:last-child {
   margin-bottom: 0;
 }
@@ -362,29 +398,27 @@
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
   cursor: pointer;
-  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1), background-color 200ms ease;
+  transition: all var(--transition-base);
   margin: var(--spacing-xl) auto 0;
   max-width: 200px;
   width: 100%;
+  box-shadow: var(--shadow-sm);
 }
 
 .settings-signout-purple:hover {
   background-color: rgba(255, 255, 255, 0.9);
-  transform: translateY(-2px) scale(1.02);
+  transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
 
-/* Ensure sign out button is visible in dark mode */
 [data-theme="dark"] .settings-signout-purple {
-  background-color: rgba(255,255,255,0.06);
+  background-color: rgba(255, 255, 255, 0.15);
   color: var(--color-white);
-  font-weight: 600;
-  text-shadow: 0 1px 0 rgba(0,0,0,0.2);
-  border: 1px solid rgba(255,255,255,0.06);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 [data-theme="dark"] .settings-signout-purple:hover {
-  background-color: rgba(255,255,255,0.14);
+  background-color: rgba(255, 255, 255, 0.25);
   box-shadow: var(--shadow-md);
 }
 

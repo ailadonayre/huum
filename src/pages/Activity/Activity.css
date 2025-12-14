@@ -14,6 +14,10 @@
   overflow-y: auto;
 }
 
+/* =========================
+   Header
+========================= */
+
 .activity-header {
   padding: var(--spacing-lg);
   background-color: var(--color-white);
@@ -22,6 +26,11 @@
   top: 0;
   z-index: 50;
   animation: fadeInDown var(--transition-base) ease-out;
+}
+
+[data-theme="dark"] .activity-header {
+  background-color: var(--color-bg-secondary);
+  border-bottom-color: var(--color-border);
 }
 
 .activity-header-top {
@@ -77,6 +86,10 @@
   height: 16px;
 }
 
+/* =========================
+   Stats
+========================= */
+
 .activity-stats {
   display: flex;
   gap: var(--spacing-md);
@@ -130,27 +143,18 @@
   color: rgba(255, 255, 255, 0.9);
 }
 
+/* =========================
+   Tabs
+========================= */
+
 .activity-tabs {
   display: flex;
   gap: var(--spacing-sm);
-  overflow-x: auto;
-  padding: var(--spacing-xs) var(--spacing-sm) 0 var(--spacing-sm);
+  padding: var(--spacing-md) 0;
   scrollbar-width: none;
   -ms-overflow-style: none;
   justify-content: center;
   flex-wrap: wrap;
-  /* Allow visible overflow for active filters with shadow */
-  overflow: visible;
-}
-
-.activity-tab.active {
-  background: var(--gradient-purple);
-  border-color: var(--color-primary);
-  color: var(--color-white);
-  box-shadow: var(--shadow-sm);
-  position: relative;
-  z-index: 60; /* brought up to ensure it's not clipped */
-  transform: translateY(-6px);
 }
 
 .activity-tabs::-webkit-scrollbar {
@@ -184,8 +188,6 @@
   border-color: var(--color-primary);
   color: var(--color-white);
   box-shadow: var(--shadow-sm);
-  position: relative;
-  z-index: 1;
 }
 
 .activity-tab-icon {
@@ -193,6 +195,10 @@
   height: 8px;
   border-radius: 50%;
 }
+
+/* =========================
+   Content
+========================= */
 
 .activity-content {
   flex: 1;
@@ -233,6 +239,10 @@
   gap: var(--spacing-md);
 }
 
+/* =========================
+   Activity Card
+========================= */
+
 .activity-card-detailed {
   display: flex;
   align-items: flex-start;
@@ -248,8 +258,13 @@
   overflow: hidden;
 }
 
+[data-theme="dark"] .activity-card-detailed {
+  background-color: var(--color-bg-secondary);
+  border-color: var(--color-border);
+}
+
 .activity-card-detailed::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 0;
@@ -295,10 +310,7 @@
 
 .activity-card-pulse {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   border-radius: 50%;
   background: inherit;
   opacity: 0.3;
@@ -348,6 +360,10 @@
   line-height: 1.5;
 }
 
+/* =========================
+   Empty State
+========================= */
+
 .activity-empty {
   display: flex;
   flex-direction: column;
@@ -389,16 +405,20 @@
   max-width: 300px;
 }
 
+/* =========================
+   Responsive
+========================= */
+
 @media (max-width: 375px) {
   .activity-card-detailed {
     padding: var(--spacing-md);
   }
-  
+
   .activity-card-icon-large {
     width: 48px;
     height: 48px;
   }
-  
+
   .activity-card-icon-large svg {
     width: 24px;
     height: 24px;

@@ -1,8 +1,8 @@
 import { Moon, Sun } from 'lucide-react';
 import './DarkModeToggle.css';
 
-const DarkModeToggle = ({ isDarkMode, onToggle, variant }) => {
-  const classes = `dark-mode-toggle-floating${variant === 'purple' ? ' purple' : ''}`;
+const DarkModeToggle = ({ isDarkMode, onToggle, variant = 'bottom' }) => {
+  const classes = `dark-mode-toggle-floating ${variant}`;
 
   const handleClick = () => {
     if (typeof onToggle === 'function') {
@@ -27,7 +27,7 @@ const DarkModeToggle = ({ isDarkMode, onToggle, variant }) => {
       onClick={handleClick}
       aria-label={dark ? "Light mode" : "Dark mode"}
     >
-      {dark ? <Sun size={20} /> : <Moon size={20} />}
+      {dark ? <Sun size={24} /> : <Moon size={24} />}
     </button>
   );
 };

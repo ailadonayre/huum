@@ -1,78 +1,60 @@
-
 .dark-mode-toggle-floating {
   position: fixed;
-  top: 20px;
-  right: 20px;
-  width: 48px;
-  height: 48px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: #8B88F1;
+  border: none;
   color: var(--color-white);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1), background-color 200ms ease;
-  z-index: 1000;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 999;
+  box-shadow: 0 8px 32px rgba(139, 136, 241, 0.28);
+  right: 90px;
+  bottom: 20px;
 }
 
 .dark-mode-toggle-floating:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 12px 40px rgba(139, 136, 241, 0.32);
+}
+
+.dark-mode-toggle-floating svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Settings page variant - different styling */
+.dark-mode-toggle-floating.settings {
+  position: static;
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dark-mode-toggle-floating.settings:hover {
   background: rgba(255, 255, 255, 0.3);
-  transform: scale(1.05);
 }
 
-.dark-mode-toggle-floating.purple {
-  background: linear-gradient(135deg, rgba(139,136,241,0.18), rgba(124,121,227,0.22));
-  border: 1px solid rgba(139,136,241,0.35);
-  color: var(--color-white);
-}
-
-.dark-mode-toggle-floating.purple:hover {
-  transform: scale(1.07);
-  box-shadow: 0 8px 24px rgba(124,121,227,0.2);
-}
-
-[data-theme="dark"] .dark-mode-toggle-floating {
+[data-theme="dark"] .dark-mode-toggle-floating.settings {
   background: rgba(255, 255, 255, 0.15);
   border-color: rgba(255, 255, 255, 0.2);
 }
 
-[data-theme="dark"] .dark-mode-toggle-floating:hover {
+[data-theme="dark"] .dark-mode-toggle-floating.settings:hover {
   background: rgba(255, 255, 255, 0.25);
-}
-
-[data-theme="dark"] .dark-mode-toggle-floating.purple {
-  background: linear-gradient(135deg, rgba(124,121,227,0.12), rgba(139,136,241,0.14));
-  border-color: rgba(255,255,255,0.06);
 }
 
 @media (max-width: 768px) {
   .dark-mode-toggle-floating {
-    top: 15px;
-    right: 15px;
-    width: 44px;
-    height: 44px;
+    width: 56px;
+    height: 56px;
+    right: 85px;
+    bottom: 15px;
   }
-}
-
-/* Bottom-right large variant to sit beside chatbot */
-.dark-mode-toggle-floating.bottom {
-  width: 60px;
-  height: 60px;
-  right: 90px;
-  bottom: 20px;
-  top: auto;
-  left: auto;
-  background: #8B88F1;
-  border: none;
-  box-shadow: 0 8px 32px rgba(139,136,241,0.28);
-  z-index: 1001;
-}
-
-.dark-mode-toggle-floating.bottom:hover {
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 12px 40px rgba(139,136,241,0.32);
 }

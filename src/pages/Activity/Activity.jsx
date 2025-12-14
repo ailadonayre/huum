@@ -1,14 +1,13 @@
 import {
-    Activity as ActivityIcon,
-    AlertCircle,
-    Bell,
-    Car,
-    Filter,
-    Home as HomeIcon,
-    MessageCircle,
-    Music,
-    Phone,
-    TrendingUp
+  Activity as ActivityIcon,
+  AlertCircle,
+  Bell,
+  Car,
+  Home as HomeIcon,
+  MessageCircle,
+  Music,
+  Phone,
+  TrendingUp
 } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import BottomNav from '../../components/BottomNav/BottomNav';
@@ -106,9 +105,6 @@ const Activity = ({ onNavigate, detectedSounds }) => {
             <h1 className="activity-title">Activity</h1>
             <p className="activity-subtitle">{activityStats.total} sounds detected</p>
           </div>
-          <button className="activity-filter-button" aria-label="Filter activities">
-            <Filter />
-          </button>
         </div>
 
         {activityStats.today > 0 && (
