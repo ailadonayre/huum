@@ -6,7 +6,9 @@
   background-color: var(--color-white);
   border: 1px solid var(--color-light-gray);
   border-radius: var(--radius-lg);
-  transition: all var(--transition-base);
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 200ms ease;
   cursor: pointer;
   animation: fadeInUp var(--transition-base) ease-out;
 }

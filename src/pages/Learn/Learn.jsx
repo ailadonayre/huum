@@ -1,13 +1,13 @@
 import {
-  BookOpen,
-  Brain,
-  Lightbulb,
-  MessageCircle,
-  MoreVertical,
-  Music,
-  Plus,
-  Sparkles,
-  Volume2
+    BookOpen,
+    Brain,
+    Lightbulb,
+    MessageCircle,
+    MoreVertical,
+    Music,
+    Plus,
+    Sparkles,
+    Volume2
 } from 'lucide-react';
 import { useState } from 'react';
 import logoPurpleText from '../../assets/icons/huum logo-purple-text.png';

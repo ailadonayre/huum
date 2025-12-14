@@ -1,9 +1,8 @@
-import { Ear } from 'lucide-react';
+import { Ear, Pause } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import logoPurple from '../../assets/icons/huum logo-purple.png';
 import ActivityCard from '../../components/ActivityCard/ActivityCard';
 import BottomNav from '../../components/BottomNav/BottomNav';
-import DarkModeToggle from '../../components/DarkModeToggle/DarkModeToggle';
 import './Home.css';
 
 const Home = ({ onNavigate, onToggleListening, isDarkMode, onToggleDarkMode, detectedSounds }) => {
@@ -44,26 +43,39 @@ const Home = ({ onNavigate, onToggleListening, isDarkMode, onToggleDarkMode, det
 
   return (
     <div className="home-screen">
-      <DarkModeToggle isDarkMode={isDarkMode} onToggle={onToggleDarkMode} />
       
       <div className="home-header-new">
         <img src={logoPurple} alt="huum" className="home-logo-new" />
       </div>
 
       <div className="home-content">
-        <div className="home-status-badge">
-          <span className="status-dot"></span>
-          <span>Not listening</span>
-        </div>
-
-        <div className="listening-circle-wrapper" onClick={onToggleListening}>
-          <div className="listening-circle">
-            <div className="listening-circle-bg"></div>
-            <div className="listening-circle-bg"></div>
-            <div className="listening-circle-bg"></div>
-            <button className={`listening-circle-inner ${pulseAnimation ? 'pulse' : ''}`}>
-              <Ear strokeWidth={2} />
+        <div className="listening-card" onClick={onToggleListening}>
+          <div className="listening-card-header">
+            <span className="listening-card-title">Listening...</span>
+            <button className="listening-card-pause" aria-label="Pause listening">
+              <Pause />
             </button>
+          </div>
+
+          <div className="listening-card-body">
+            <div className="listening-circle">
+              <div className="listening-circle-bg active" />
+              <button className={`listening-circle-inner ${pulseAnimation ? 'pulse' : ''}`}>
+                <Ear strokeWidth={2} />
+              </button>
+            </div>
+
+            {recentActivities.length > 0 && (
+              <div className="listening-detection">
+                <div className="listening-detection-icon" style={{ background: recentActivities[0].categoryColor === 'pink' ? 'var(--gradient-pink)' : recentActivities[0].categoryColor === 'orange' ? 'var(--gradient-orange)' : recentActivities[0].categoryColor === 'green' ? 'var(--gradient-green)' : 'var(--gradient-purple)'}}>
+                  <Ear />
+                </div>
+                <div className="listening-detection-content">
+                  <div className="listening-detection-title">{recentActivities[0].category}</div>
+                  <div className="listening-detection-sub">{recentActivities[0].time}</div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 

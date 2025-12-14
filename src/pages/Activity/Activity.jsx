@@ -1,14 +1,14 @@
 import {
-  Activity as ActivityIcon,
-  AlertCircle,
-  Bell,
-  Car,
-  Filter,
-  Home as HomeIcon,
-  MessageCircle,
-  Music,
-  Phone,
-  TrendingUp
+    Activity as ActivityIcon,
+    AlertCircle,
+    Bell,
+    Car,
+    Filter,
+    Home as HomeIcon,
+    MessageCircle,
+    Music,
+    Phone,
+    TrendingUp
 } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import BottomNav from '../../components/BottomNav/BottomNav';

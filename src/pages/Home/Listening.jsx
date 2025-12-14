@@ -1,8 +1,8 @@
+import { Ear } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import logoPurple from '../../assets/icons/huum logo-purple.png';
 import ActivityCard from '../../components/ActivityCard/ActivityCard';
 import BottomNav from '../../components/BottomNav/BottomNav';
-import DarkModeToggle from '../../components/DarkModeToggle/DarkModeToggle';
 import { generateWaveformData } from '../../utils/animationHelpers';
 import './Home.css';
 import './Listening.css';
@@ -20,18 +20,6 @@ const Listening = ({ onNavigate, detectedSounds, onToggleListening, isDarkMode, 
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    if (detectedSounds.length > 0) {
-      const latest = detectedSounds[0];
-      setCurrentSound(latest);
-      
-      const timeout = setTimeout(() => {
-        setCurrentSound(null);
-      }, 3000);
-
-      return () => clearTimeout(timeout);
-    }
-  }, [detectedSounds]);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -43,7 +31,6 @@ const Listening = ({ onNavigate, detectedSounds, onToggleListening, isDarkMode, 
 
   return (
     <div className="home-screen listening-screen">
-      <DarkModeToggle isDarkMode={isDarkMode} onToggle={onToggleDarkMode} />
       
       <div className="home-header-new">
         <img src={logoPurple} alt="huum" className="home-logo-new" />
@@ -55,31 +42,10 @@ const Listening = ({ onNavigate, detectedSounds, onToggleListening, isDarkMode, 
           <span>Listening...</span>
         </div>
 
-        {currentSound && (
-          <div className="sound-detection-alert" style={{ opacity: intensityScale }}>
-            <div className="sound-alert-icon" style={{
-              background: currentSound.categoryColor === 'pink' ? 'var(--gradient-pink)' :
-                         currentSound.categoryColor === 'orange' ? 'var(--gradient-orange)' :
-                         currentSound.categoryColor === 'green' ? 'var(--gradient-green)' :
-                         'var(--gradient-purple)'
-            }}>
-              <span className="sound-alert-emoji">
-                {currentSound.category === 'Conversation' ? '🗣️' :
-                 currentSound.category === 'Music' ? '🎵' :
-                 currentSound.category === 'Doorbell' ? '🔔' :
-                 currentSound.category === 'Phone call' ? '📞' :
-                 '🚗'}
-              </span>
-            </div>
-            <p className="sound-alert-text">{currentSound.category} detected</p>
-          </div>
-        )}
 
         <div className="listening-circle-wrapper" onClick={onToggleListening}>
           <div className="listening-circle">
-            <div className="listening-circle-bg active"></div>
-            <div className="listening-circle-bg active"></div>
-            <div className="listening-circle-bg active"></div>
+            <div className="listening-circle-bg active" />
             <button className="listening-circle-inner listening-active">
               <div className="waveform-container">
                 {waveformData.map((height, index) => (
@@ -95,6 +61,17 @@ const Listening = ({ onNavigate, detectedSounds, onToggleListening, isDarkMode, 
               </div>
             </button>
           </div>
+          {recentActivities.length > 0 && (
+            <div className="listening-detection">
+              <div className="listening-detection-icon" style={{ background: recentActivities[0].categoryColor === 'pink' ? 'var(--gradient-pink)' : recentActivities[0].categoryColor === 'orange' ? 'var(--gradient-orange)' : recentActivities[0].categoryColor === 'green' ? 'var(--gradient-green)' : 'var(--gradient-purple)'}}>
+                <Ear />
+              </div>
+              <div className="listening-detection-content">
+                <div className="listening-detection-title">{recentActivities[0].category}</div>
+                <div className="listening-detection-sub">{recentActivities[0].time}</div>
+              </div>
+            </div>
+          )}
         </div>
 
         <h1 className="home-title">Listening...</h1>

@@ -140,9 +140,14 @@
 }
 
 .settings-simple-card:hover {
-  background-color: rgba(139, 136, 241, 0.05);
+  background-color: rgba(139, 136, 241, 0.08);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
+  border-radius: var(--radius-xl);
+}
+
+.settings-simple-card:active {
+  transform: translateY(0);
 }
 
 .settings-card-icon-wrapper {
@@ -357,7 +362,7 @@
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
   cursor: pointer;
-  transition: all var(--transition-base);
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1), background-color 200ms ease;
   margin: var(--spacing-xl) auto 0;
   max-width: 200px;
   width: 100%;
@@ -365,7 +370,21 @@
 
 .settings-signout-purple:hover {
   background-color: rgba(255, 255, 255, 0.9);
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: var(--shadow-md);
+}
+
+/* Ensure sign out button is visible in dark mode */
+[data-theme="dark"] .settings-signout-purple {
+  background-color: rgba(255,255,255,0.06);
+  color: var(--color-white);
+  font-weight: 600;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+[data-theme="dark"] .settings-signout-purple:hover {
+  background-color: rgba(255,255,255,0.14);
   box-shadow: var(--shadow-md);
 }
 

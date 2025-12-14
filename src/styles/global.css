@@ -68,6 +68,9 @@ body {
   line-height: 1.5;
   min-height: 100vh;
   overflow-x: hidden;
+  /* Allow vertical scrolling (fixes unscrollable screens) */
+  overflow-y: auto;
+  position: relative;
 }
 
 #root {
@@ -111,7 +114,10 @@ button {
   border: none;
   background: none;
   padding: 0;
-  transition: all var(--transition-base);
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1),
+              background-color 200ms ease;
+  will-change: transform, box-shadow, background-color;
 }
 
 button:disabled {
@@ -170,6 +176,34 @@ img {
   background: var(--color-primary);
 }
 
+/* Text selection */
+::selection {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+input::selection,
+textarea::selection {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+/* Global interactive hover polish - smooth, consistent, fewer layout shifts */
+:where(button, .btn, a.button, .chatbot-button, .dark-mode-toggle-floating, .chatbot-send, .listening-circle-inner, .settings-signout-purple):hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: var(--shadow-sm);
+}
+
+:where(button, .chatbot-button, .dark-mode-toggle-floating, .chatbot-send, .listening-circle-inner, .settings-signout-purple):active {
+  transform: translateY(0) scale(0.99);
+}
+
+/* Ensure focus-visible is obvious */
+*:focus-visible {
+  outline: 3px solid rgba(139,136,241,0.25);
+  outline-offset: 2px;
+}
+
 /* Accessibility */
 .sr-only {
   position: absolute;
@@ -215,7 +249,7 @@ html {
 }
 
 body {
-  overscroll-behavior-y: none;
+  overscroll-behavior-y: contain;
 }
 
 /* Fix for mobile address bar */
@@ -267,21 +301,19 @@ button,
 html {
   height: 100%;
   height: 100dvh;
-  overflow: hidden;
 }
 
 body {
   height: 100%;
   height: 100dvh;
-  overflow: hidden;
-  position: fixed;
-  width: 100%;
+  /* allow normal scrolling on mobile */
+  position: relative;
+  -webkit-overflow-scrolling: touch;
 }
 
 #root {
   height: 100%;
   height: 100dvh;
-  overflow: hidden;
 }
 
 /* Fix for Safari mobile address bar */
@@ -322,6 +354,39 @@ body {
 .icon-circle-middle,
 .icon-circle-inner {
   aspect-ratio: 1 / 1;
+}
+
+/* Dark mode component overrides: ensure containers use dark backgrounds (no hard black) */
+[data-theme="dark"] .home-header-new,
+[data-theme="dark"] .learn-header-new,
+[data-theme="dark"] .activity-header,
+[data-theme="dark"] .sound-library-header,
+[data-theme="dark"] .bottom-nav,
+[data-theme="dark"] .settings-header-purple {
+  background-color: var(--color-bg-secondary) !important;
+  color: var(--color-white) !important;
+}
+
+[data-theme="dark"] .learn-category-card,
+[data-theme="dark"] .sound-card,
+[data-theme="dark"] .activity-card-detailed,
+[data-theme="dark"] .activity-card,
+[data-theme="dark"] .settings-expandable-card,
+[data-theme="dark"] .settings-simple-card {
+  background-color: var(--color-bg-secondary) !important;
+  border-color: var(--color-border) !important;
+  color: var(--color-white) !important;
+}
+
+[data-theme="dark"] .learn-category-item,
+[data-theme="dark"] .settings-toggle-row,
+[data-theme="dark"] .sound-library-search-input {
+  background-color: var(--color-bg-primary) !important;
+}
+
+/* Smooth fade when switching themes (helps visually) */
+.app {
+  transition: background-color 350ms ease, color 350ms ease;
 }
 
 .listening-circle-bg {

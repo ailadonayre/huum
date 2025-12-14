@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import Chatbot from './components/Chatbot/Chatbot';
+import DarkModeToggle from './components/DarkModeToggle/DarkModeToggle';
 import Activity from './pages/Activity/Activity';
 import CreateAccount from './pages/Auth/CreateAccount';
 import ForgotPassword from './pages/Auth/ForgotPassword';
@@ -335,11 +336,14 @@ function App() {
   return (
     <div className="app">
       {renderScreen()}
-      {isAuthenticated && (
-        <Chatbot 
-          isOpen={isChatbotOpen} 
-          onToggle={() => setIsChatbotOpen(!isChatbotOpen)} 
-        />
+      {isAuthenticated && ['home','activity','learn','library','settings'].includes(currentScreen) && (
+        <>
+          <DarkModeToggle isDarkMode={isDarkMode} onToggle={toggleDarkMode} variant="bottom" />
+          <Chatbot 
+            isOpen={isChatbotOpen} 
+            onToggle={() => setIsChatbotOpen(!isChatbotOpen)} 
+          />
+        </>
       )}
     </div>
   );

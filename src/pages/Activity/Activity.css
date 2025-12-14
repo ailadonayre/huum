@@ -134,11 +134,23 @@
   display: flex;
   gap: var(--spacing-sm);
   overflow-x: auto;
-  padding-bottom: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm) 0 var(--spacing-sm);
   scrollbar-width: none;
   -ms-overflow-style: none;
   justify-content: center;
   flex-wrap: wrap;
+  /* Allow visible overflow for active filters with shadow */
+  overflow: visible;
+}
+
+.activity-tab.active {
+  background: var(--gradient-purple);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  z-index: 60; /* brought up to ensure it's not clipped */
+  transform: translateY(-6px);
 }
 
 .activity-tabs::-webkit-scrollbar {

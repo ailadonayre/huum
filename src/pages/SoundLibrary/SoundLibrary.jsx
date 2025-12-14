@@ -1,15 +1,15 @@
 import {
-  Calendar,
-  Clock,
-  Home as HomeIcon,
-  Library as LibraryIcon,
-  MessageCircle,
-  MoreVertical,
-  Music,
-  Plus,
-  Search,
-  Sparkles,
-  Volume2
+    Calendar,
+    Clock,
+    Home as HomeIcon,
+    Library as LibraryIcon,
+    MessageCircle,
+    MoreVertical,
+    Music,
+    Plus,
+    Search,
+    Sparkles,
+    Volume2
 } from 'lucide-react';
 import { useState } from 'react';
 import BottomNav from '../../components/BottomNav/BottomNav';
