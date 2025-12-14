@@ -41,7 +41,7 @@ const Chatbot = ({ isOpen, onToggle }) => {
     const lower = userMessage.toLowerCase();
 
     if (lower.includes('add') && lower.includes('sound')) {
-      return "To add a new sound, go to the Sound Library tab and tap the '+ Add sound' button. You'll be able to record and categorize your sound!";
+      return "To add a new sound, go to the Sound Library tab and tap the 'Add a new sound' button. You'll be able to record and categorize your sound!";
     } else if (lower.includes('detect') || lower.includes('what sounds')) {
       return "huum can detect various sounds including conversations, doorbells, phone calls, alarms, music, traffic, and many more. You can also teach it to recognize custom sounds!";
     } else if (lower.includes('how') && lower.includes('work')) {
