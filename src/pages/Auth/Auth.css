@@ -196,7 +196,15 @@
 
 /* Verify Email specific styles */
 .verify-email-content {
+  padding: var(--spacing-xl) var(--spacing-xl);
   text-align: center;
+}
+
+.verify-code-inputs {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: center;
+  margin: var(--spacing-lg) 0 var(--spacing-lg) 0; /* Reduced to lg */
 }
 
 .verify-code-inputs {

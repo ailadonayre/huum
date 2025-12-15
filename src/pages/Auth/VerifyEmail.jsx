@@ -56,7 +56,7 @@ const VerifyEmail = ({ onBack, onVerify, email = 'user@example.com' }) => {
     e.preventDefault();
     const verificationCode = code.join('');
     if (verificationCode.length === 6) {
-      // Simulate verification
+      // After verification, redirect to signin instead of setup
       onVerify();
     }
   };

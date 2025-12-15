@@ -212,7 +212,7 @@ function App() {
         return (
           <VerifyEmail
             onBack={() => handleNext('createaccount')}
-            onVerify={handleSignIn}
+            onVerify={() => handleNext('signin')}  // Now redirects to signin
           />
         );
       
