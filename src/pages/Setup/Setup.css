@@ -7,21 +7,26 @@
   flex-direction: column;
   color: var(--color-white);
   padding: var(--spacing-xl) var(--spacing-lg);
+  padding-top: max(var(--spacing-xl), env(safe-area-inset-top)); /* Cover notch area */
   padding-bottom: calc(var(--spacing-xl) + env(safe-area-inset-bottom));
-  position: relative; /* Changed from fixed to relative */
-  overflow-y: auto; /* Allow scrolling */
+  position: relative;
+  overflow-y: auto;
   overflow-x: hidden;
+  /* Ensure full coverage */
+  margin: 0;
+  box-sizing: border-box;
 }
 
 /* Header with progress bar */
 .setup-header {
   display: flex;
   align-items: center;
-  justify-content: center; /* Center the progress bar */
+  justify-content: center;
   margin-bottom: var(--spacing-2xl);
   animation: fadeInDown var(--transition-base) ease-out;
   position: relative;
   z-index: 10;
+  flex-shrink: 0; /* Prevent header from shrinking */
 }
 
 .setup-back-button {
@@ -34,7 +39,7 @@
   align-items: center;
   justify-content: center;
   transition: opacity var(--transition-fast);
-  position: relative; /* Ensure clickable */
+  position: relative;
   z-index: 10;
 }
 
@@ -70,7 +75,8 @@
   max-width: 400px;
   margin: 0 auto;
   width: 100%;
-  position: relative; /* Ensure proper stacking */
+  position: relative;
+  padding: var(--spacing-lg) 0; /* Add vertical padding */
 }
 
 .setup-greeting {
@@ -100,7 +106,7 @@
   animation-delay: 400ms;
   opacity: 0;
   animation-fill-mode: forwards;
-  position: relative; /* Ensure proper stacking */
+  position: relative;
 }
 
 .setup-description {
@@ -128,8 +134,9 @@
   animation-delay: 800ms;
   opacity: 0;
   animation-fill-mode: forwards;
-  position: relative; /* Ensure buttons are clickable */
+  position: relative;
   z-index: 10;
+  flex-shrink: 0; /* Prevent footer from shrinking */
 }
 
 .setup-skip-text {
@@ -144,7 +151,7 @@
   cursor: pointer;
   text-decoration: underline;
   transition: opacity var(--transition-fast);
-  position: relative; /* Ensure clickable */
+  position: relative;
 }
 
 .setup-skip-link:hover {
@@ -178,6 +185,15 @@
   
   .setup-icon-wrapper {
     margin: var(--spacing-lg) 0;
+  }
+  
+  .setup-greeting {
+    font-size: var(--font-size-xl);
+  }
+  
+  .setup-title {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-md);
   }
 }
 
