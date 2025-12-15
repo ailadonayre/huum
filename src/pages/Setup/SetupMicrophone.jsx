@@ -1,4 +1,4 @@
-import { ChevronLeft, Mic } from 'lucide-react';
+import { Mic } from 'lucide-react';
 import Button from '../../components/Button/Button';
 import IconCircle from '../../components/IconCircle/IconCircle';
 import './Setup.css';
@@ -13,9 +13,6 @@ const SetupMicrophone = ({ onNext, onBack, onSkip, userName = 'User' }) => {
   return (
     <div className="setup-screen">
       <div className="setup-header">
-        <button className="setup-back-button" onClick={onBack} aria-label="Go back">
-          <ChevronLeft size={24} />
-        </button>
         <div className="setup-progress">
           <div className="setup-progress-bar active"></div>
           <div className="setup-progress-bar"></div>

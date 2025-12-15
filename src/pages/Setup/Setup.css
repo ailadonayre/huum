@@ -8,21 +8,20 @@
   color: var(--color-white);
   padding: var(--spacing-xl) var(--spacing-lg);
   padding-bottom: calc(var(--spacing-xl) + env(safe-area-inset-bottom));
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow-y: auto;
+  position: relative; /* Changed from fixed to relative */
+  overflow-y: auto; /* Allow scrolling */
+  overflow-x: hidden;
 }
 
-/* Header with back button and logo */
+/* Header with progress bar */
 .setup-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center; /* Center the progress bar */
   margin-bottom: var(--spacing-2xl);
   animation: fadeInDown var(--transition-base) ease-out;
+  position: relative;
+  z-index: 10;
 }
 
 .setup-back-button {
@@ -35,6 +34,8 @@
   align-items: center;
   justify-content: center;
   transition: opacity var(--transition-fast);
+  position: relative; /* Ensure clickable */
+  z-index: 10;
 }
 
 .setup-back-button:hover {
@@ -69,6 +70,7 @@
   max-width: 400px;
   margin: 0 auto;
   width: 100%;
+  position: relative; /* Ensure proper stacking */
 }
 
 .setup-greeting {
@@ -98,6 +100,7 @@
   animation-delay: 400ms;
   opacity: 0;
   animation-fill-mode: forwards;
+  position: relative; /* Ensure proper stacking */
 }
 
 .setup-description {
@@ -125,6 +128,8 @@
   animation-delay: 800ms;
   opacity: 0;
   animation-fill-mode: forwards;
+  position: relative; /* Ensure buttons are clickable */
+  z-index: 10;
 }
 
 .setup-skip-text {
@@ -139,6 +144,7 @@
   cursor: pointer;
   text-decoration: underline;
   transition: opacity var(--transition-fast);
+  position: relative; /* Ensure clickable */
 }
 
 .setup-skip-link:hover {
@@ -175,8 +181,19 @@
   }
 }
 
+/* iOS Safari specific fixes */
 @supports (-webkit-touch-callout: none) {
   .setup-screen {
     min-height: -webkit-fill-available;
+  }
+  
+  /* Ensure buttons are always clickable on iOS */
+  .setup-footer button,
+  .setup-back-button,
+  .setup-skip-link {
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
   }
 }
