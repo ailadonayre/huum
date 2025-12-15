@@ -215,3 +215,33 @@
 [data-theme="dark"] .modal-body:hover {
   scrollbar-color: var(--color-primary) transparent;
 }
+
+/* Purple background for sound recording modal */
+.modal-content.modal-purple {
+  background: var(--gradient-purple-bg);
+}
+
+.modal-content.modal-purple .modal-header {
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+.modal-content.modal-purple .modal-title {
+  color: var(--color-white);
+}
+
+.modal-content.modal-purple .modal-close {
+  color: var(--color-white);
+}
+
+.modal-content.modal-purple .modal-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.modal-content.modal-purple .modal-body {
+  background: transparent;
+}
+
+.modal-content.modal-purple .modal-footer {
+  border-top-color: rgba(255, 255, 255, 0.2);
+  background: transparent;
+}

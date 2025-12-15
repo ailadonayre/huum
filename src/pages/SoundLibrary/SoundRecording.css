@@ -9,13 +9,9 @@
 
 .sound-recording-subtitle {
   font-size: var(--font-size-base);
-  color: var(--color-text-secondary);
+  color: rgba(255, 255, 255, 0.9); /* White text for purple background */
   margin-bottom: var(--spacing-2xl);
   max-width: 320px;
-}
-
-[data-theme="dark"] .sound-recording-subtitle {
-  color: var(--color-text-secondary);
 }
 
 /* Recording Circle */
@@ -43,7 +39,7 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: rgba(139, 136, 241, 0.2); /* Changed to translucent purple */
+  background: rgba(255, 255, 255, 0.15); /* White ripples for purple background */
   animation: rippleExpand 2s ease-out infinite;
   pointer-events: none;
   z-index: 1;
@@ -90,7 +86,7 @@
 }
 
 .sound-recording-circle-inner.recording {
-  background: var(--gradient-purple); /* Changed from var(--color-pink) to purple gradient */
+  background: var(--gradient-purple);
 }
 
 .sound-recording-circle-inner svg {
@@ -107,13 +103,9 @@
 .sound-recording-timer {
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
+  color: var(--color-white); /* White text for purple background */
   margin-top: var(--spacing-lg);
   font-variant-numeric: tabular-nums;
-}
-
-[data-theme="dark"] .sound-recording-timer {
-  color: var(--color-white);
 }
 
 /* Instructions */
@@ -124,17 +116,13 @@
 .sound-recording-instruction-text {
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
-  color: var(--color-text-primary);
+  color: var(--color-white); /* White text for purple background */
   margin-bottom: var(--spacing-sm);
-}
-
-[data-theme="dark"] .sound-recording-instruction-text {
-  color: var(--color-white);
 }
 
 .sound-recording-hint {
   font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
+  color: rgba(255, 255, 255, 0.8); /* Slightly transparent white */
   max-width: 280px;
   margin: 0 auto;
 }
@@ -171,4 +159,21 @@
     width: 40px;
     height: 40px;
   }
+}
+
+/* White buttons for purple modal footer */
+.modal-content.modal-purple .modal-footer .btn-purple {
+  background: var(--color-white);
+  color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.modal-content.modal-purple .modal-footer .btn-purple:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.modal-content.modal-purple .modal-footer .btn-purple:active {
+  transform: translateY(0);
 }

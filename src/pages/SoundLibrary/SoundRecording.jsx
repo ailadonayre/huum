@@ -64,6 +64,7 @@ const SoundRecording = ({ isOpen, onClose, onSave, soundName }) => {
       isOpen={isOpen}
       onClose={handleClose}
       title={isRecording ? 'Recording...' : 'Ready to record'}
+      className="modal-purple"
       footer={
         recordingTime > 0 && !isRecording ? (
           <div style={{ display: 'flex', gap: 'var(--spacing-md)', width: '100%' }}>

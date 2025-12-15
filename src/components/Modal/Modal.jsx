@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import './Modal.css';
 
-const Modal = ({ isOpen, onClose, title, children, footer }) => {
+const Modal = ({ isOpen, onClose, title, children, footer, className = '' }) => {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -37,7 +37,7 @@ const Modal = ({ isOpen, onClose, title, children, footer }) => {
 
   const modalContent = (
     <div className="modal-overlay" onClick={handleOverlayClick}>
-      <div className="modal-content">
+      <div className={`modal-content ${className}`}>
         <div className="modal-header">
           <h2 className="modal-title">{title}</h2>
           <button 
@@ -60,7 +60,6 @@ const Modal = ({ isOpen, onClose, title, children, footer }) => {
     </div>
   );
 
-  // Use portal to render modal at document.body level
   return createPortal(modalContent, document.body);
 };
 
