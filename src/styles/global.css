@@ -47,7 +47,10 @@
   font-display: swap;
 }
 
-/* Remove default body margins and ensure full viewport coverage */
+/* Remove the fixed positioning rules that were causing issues */
+/* Keep the viewport coverage rules but remove fixed positioning from onboarding/setup */
+
+/* Add this updated section */
 html {
   margin: 0;
   padding: 0;
@@ -71,9 +74,7 @@ body {
   height: 100%;
 }
 
-/* Ensure screens with gradient backgrounds cover entire viewport */
-.onboarding-screen,
-.setup-screen,
+/* Only auth and splash screens need fixed positioning */
 .auth-screen,
 .splash-screen {
   margin: 0;
@@ -93,8 +94,6 @@ body {
     height: -webkit-fill-available;
   }
   
-  .onboarding-screen,
-  .setup-screen,
   .auth-screen,
   .splash-screen {
     min-height: -webkit-fill-available;
