@@ -1,10 +1,11 @@
-import { Mic, X } from 'lucide-react';
+import { Mic } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import Button from '../../components/Button/Button';
+import Modal from '../../components/Modal/Modal';
 import { generateWaveformData } from '../../utils/animationHelpers';
 import './SoundRecording.css';
 
-const SoundRecording = ({ onBack, onSave, soundName }) => {
+const SoundRecording = ({ isOpen, onClose, onSave, soundName }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [recordingTime, setRecordingTime] = useState(0);
   const [waveformData, setWaveformData] = useState(generateWaveformData(7));
@@ -28,10 +29,8 @@ const SoundRecording = ({ onBack, onSave, soundName }) => {
 
   const handleRecordToggle = () => {
     if (isRecording) {
-      // Stop recording
       setIsRecording(false);
     } else {
-      // Start recording
       setIsRecording(true);
       setRecordingTime(0);
     }
@@ -42,28 +41,48 @@ const SoundRecording = ({ onBack, onSave, soundName }) => {
       name: soundName,
       duration: recordingTime,
     });
+    setIsRecording(false);
+    setRecordingTime(0);
     onSave();
   };
 
-  return (
-    <div className="sound-recording-screen">
-      <div className="sound-recording-header">
-        <button 
-          className="sound-recording-close"
-          onClick={onBack}
-          aria-label="Close"
-        >
-          <X size={24} />
-        </button>
-      </div>
+  const handleClose = () => {
+    setIsRecording(false);
+    setRecordingTime(0);
+    onClose();
+  };
 
-      <div className="sound-recording-content">
-        <h1 className="sound-recording-title">
-          {isRecording ? 'Recording...' : 'Ready to record'}
-        </h1>
+  const handleReRecord = () => {
+    setRecordingTime(0);
+    setIsRecording(false);
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <Modal
+      isOpen={isOpen}
+      onClose={handleClose}
+      title={isRecording ? 'Recording...' : 'Ready to record'}
+      footer={
+        recordingTime > 0 && !isRecording ? (
+          <div style={{ display: 'flex', gap: 'var(--spacing-md)', width: '100%' }}>
+            <Button variant="purple" fullWidth onClick={handleReRecord}>
+              Re-record
+            </Button>
+            <Button variant="purple" fullWidth onClick={handleSave}>
+              Save
+            </Button>
+          </div>
+        ) : null
+      }
+    >
+      <div className="sound-recording-modal-content">
         <p className="sound-recording-subtitle">
           {isRecording 
             ? `Recording "${soundName}"`
+            : recordingTime > 0
+            ? 'Recording complete!'
             : `Tap the button to start recording "${soundName}"`}
         </p>
 
@@ -130,31 +149,7 @@ const SoundRecording = ({ onBack, onSave, soundName }) => {
           )}
         </div>
       </div>
-
-      {recordingTime > 0 && !isRecording && (
-        <div className="sound-recording-footer">
-          <div className="sound-recording-actions">
-            <Button 
-              variant="secondary" 
-              fullWidth
-              onClick={() => {
-                setRecordingTime(0);
-                setIsRecording(false);
-              }}
-            >
-              Re-record
-            </Button>
-            <Button 
-              variant="primary" 
-              fullWidth
-              onClick={handleSave}
-            >
-              Save
-            </Button>
-          </div>
-        </div>
-      )}
-    </div>
+    </Modal>
   );
 };
 

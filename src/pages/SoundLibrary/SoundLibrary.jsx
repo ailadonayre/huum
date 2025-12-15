@@ -324,13 +324,12 @@ const SoundLibrary = ({ onNavigate }) => {
         onContinue={handleSoundContinue}
       />
 
-      {isRecordingModalOpen && (
-        <SoundRecording
-          onBack={() => setIsRecordingModalOpen(false)}
-          onSave={handleSoundSaved}
-          soundName={currentSoundName || 'New Sound'}
-        />
-      )}
+      <SoundRecording
+        isOpen={isRecordingModalOpen}
+        onClose={() => setIsRecordingModalOpen(false)}
+        onSave={handleSoundSaved}
+        soundName={currentSoundName || 'New Sound'}
+      />
     </div>
   );
 };
