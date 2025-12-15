@@ -398,3 +398,70 @@
 .auth-form {
   width: 100%;
 }
+
+/* Dark mode fixes for Auth screens */
+[data-theme="dark"] .auth-form {
+  background-color: var(--color-bg-secondary);
+}
+
+[data-theme="dark"] .auth-title,
+[data-theme="dark"] .auth-subtitle {
+  color: var(--color-white);
+}
+
+[data-theme="dark"] .auth-social-button {
+  background-color: var(--color-bg-primary);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .auth-social-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .auth-divider {
+  color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .auth-divider::before,
+[data-theme="dark"] .auth-divider::after {
+  border-bottom-color: var(--color-border);
+}
+
+[data-theme="dark"] .auth-footer-text {
+  color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .auth-footer-link {
+  color: var(--color-primary);
+}
+
+/* Fix for InputField in Auth forms - dark mode */
+[data-theme="dark"] .auth-form .input-label {
+  color: var(--color-white);
+}
+
+[data-theme="dark"] .auth-form .input-wrapper {
+  background-color: var(--color-bg-primary);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .auth-form .input {
+  color: var(--color-white);
+  background-color: var(--color-bg-primary);
+}
+
+[data-theme="dark"] .auth-form .input::placeholder {
+  color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .auth-form .input-wrapper.focused {
+  border-color: var(--color-primary);
+}
+
+[data-theme="dark"] .auth-form .input-icon-button {
+  color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .auth-form .input-icon-button:hover {
+  color: var(--color-primary);
+}

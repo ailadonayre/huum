@@ -6,6 +6,13 @@
   font-family: var(--font-family);
 }
 
+/* Move chatbot above bottom nav on mobile */
+@media (max-width: 768px) {
+  .chatbot-container {
+    bottom: 100px; /* 80px bottom nav + 20px spacing */
+  }
+}
+
 .chatbot-button {
   width: 60px;
   height: 60px;
@@ -69,6 +76,13 @@
   flex-direction: column;
   overflow: hidden;
   animation: slideUp var(--transition-base) ease-out;
+}
+
+/* Adjust chatbot window position on mobile */
+@media (max-width: 768px) {
+  .chatbot-window {
+    bottom: 180px; /* 80px bottom nav + 60px button + 40px spacing */
+  }
 }
 
 @keyframes slideUp {
@@ -304,13 +318,13 @@
 @media (max-width: 480px) {
   .chatbot-window {
     right: 10px;
-    bottom: 90px;
+    bottom: 170px; /* Adjusted for mobile with bottom nav */
     width: calc(100vw - 20px);
-    height: calc(100vh - 120px);
+    height: calc(100vh - 250px); /* Adjusted height */
   }
   
   .chatbot-container {
     right: 15px;
-    bottom: 15px;
+    bottom: 95px; /* 80px bottom nav + 15px spacing */
   }
 }
