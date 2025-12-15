@@ -25,10 +25,6 @@
 
 /* Layered circles for depth effect */
 .icon-circle-outer {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 100%;
   height: 100%;
   border-radius: 50%;
@@ -40,10 +36,6 @@
 }
 
 .icon-circle-middle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 75%;
   height: 75%;
   border-radius: 50%;
@@ -54,10 +46,6 @@
 }
 
 .icon-circle-inner {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 65%;
   height: 65%;
   border-radius: 50%;
