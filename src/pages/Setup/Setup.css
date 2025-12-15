@@ -7,14 +7,29 @@
   flex-direction: column;
   color: var(--color-white);
   padding: var(--spacing-xl) var(--spacing-lg);
-  padding-top: max(var(--spacing-xl), env(safe-area-inset-top)); /* Cover notch area */
+  padding-top: max(var(--spacing-xl), env(safe-area-inset-top));
   padding-bottom: calc(var(--spacing-xl) + env(safe-area-inset-bottom));
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  /* Ensure full coverage */
   margin: 0;
   box-sizing: border-box;
+}
+
+/* Add pseudo-element to extend background into safe areas */
+.setup-screen::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--gradient-purple-bg);
+  z-index: -1;
 }
 
 /* Header with progress bar */
@@ -26,7 +41,7 @@
   animation: fadeInDown var(--transition-base) ease-out;
   position: relative;
   z-index: 10;
-  flex-shrink: 0; /* Prevent header from shrinking */
+  flex-shrink: 0;
 }
 
 .setup-back-button {
@@ -76,7 +91,7 @@
   margin: 0 auto;
   width: 100%;
   position: relative;
-  padding: var(--spacing-lg) 0; /* Add vertical padding */
+  padding: var(--spacing-lg) 0;
 }
 
 .setup-greeting {
@@ -136,7 +151,7 @@
   animation-fill-mode: forwards;
   position: relative;
   z-index: 10;
-  flex-shrink: 0; /* Prevent footer from shrinking */
+  flex-shrink: 0;
 }
 
 .setup-skip-text {
@@ -201,6 +216,13 @@
 @supports (-webkit-touch-callout: none) {
   .setup-screen {
     min-height: -webkit-fill-available;
+    height: 100%;
+  }
+  
+  /* Extend background to cover notch and bottom safe areas */
+  .setup-screen::before {
+    top: calc(-1 * env(safe-area-inset-top));
+    bottom: calc(-1 * env(safe-area-inset-bottom));
   }
   
   /* Ensure buttons are always clickable on iOS */
@@ -211,5 +233,13 @@
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     user-select: none;
+  }
+}
+
+/* Additional fix for iPhone notch and bottom bar */
+@media screen and (max-width: 428px) {
+  .setup-screen {
+    padding-top: calc(var(--spacing-xl) + env(safe-area-inset-top, 20px));
+    padding-bottom: calc(var(--spacing-xl) + env(safe-area-inset-bottom, 20px));
   }
 }
