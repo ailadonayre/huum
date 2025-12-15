@@ -55,9 +55,13 @@ const SignIn = ({ onBack, onSignIn, onCreateAccount, onForgotPassword }) => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <a className="auth-link" onClick={onForgotPassword}>
+            <button 
+              type="button"
+              className="auth-link" 
+              onClick={onForgotPassword}
+            >
               Forgot Password?
-            </a>
+            </button>
           </div>
 
           <Button 

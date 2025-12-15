@@ -12,6 +12,7 @@
   right: 0;
   bottom: 0;
   overflow-y: auto;
+  padding-bottom: 0; /* Change this to 0 or remove the line entirely */
 }
 
 /* Header with back button and logo */
